@@ -1,0 +1,43 @@
+@mixin padL-R($l, $r) {
+    padding-left: $l;
+    padding-right: $r;
+}
+
+@mixin m-p($m, $p) {
+    margin: $m;
+    padding: $p;
+}
+
+@mixin ff($f, $s) {
+    @font-face {
+        font-family: $f;
+        src: url($s);
+    }
+}
+
+@mixin absolutePos($top: false, $right: false, $bottom: false, $left: false, $position: absolute) {
+    position: $position;
+    @if ($top) {top: $top};
+    @if ($right) {right: $right};
+    @if ($bottom) {bottom: $bottom};
+    @if ($left) {left: $left};
+}
+
+@mixin fonter($f, $s, $w, $c) {
+    font: {
+        family: $f;
+        size: $s;
+        weight: $w;
+    }
+    color: $c;
+}
+
+@mixin w-h($w, $h) {
+    width: $w;
+    height: $h;
+}
+
+@mixin dis-dir($dis, $dir) {
+    display: $dis;
+    flex-direction: $dir;
+}

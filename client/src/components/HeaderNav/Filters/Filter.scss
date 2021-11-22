@@ -1,0 +1,135 @@
+@import "../../../shared/mixins/mixins.scss";
+
+.headerFilter {
+    display: flex;
+    padding: 0;
+    &, li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .iconFilter {
+        padding-right: 16px;
+        border-right: solid 1px #2C2C2C;
+        display: flex;
+    }
+    .filterMenu {
+        display: flex;
+        background: black;   
+        cursor: default;     
+        li {
+            display: flex;
+            text-transform: uppercase;
+            font: 500 10px InterMedium;
+            cursor: pointer;
+            position: relative;
+            color: white;
+            border-right: solid 1px #2C2C2C;
+            border-bottom: solid 1px #2C2C2C;
+            &:not(:last-child) {
+                border-left: none;
+            }
+            a {
+                color: #c4c4c4;
+                padding: 16px;
+                line-height: 14px;
+                padding-bottom: 16px;
+                &.active,
+                &:hover {
+                    border-bottom: 1px solid white;
+                }
+            }
+            .filteredBattlesValue {
+                font: 400 10px InterRegular;
+            }
+        }
+    }
+    &.filterBattles {
+        .filterMenu {
+            li {
+                padding: 10px 16px;
+                &.active {
+                    padding-left: 27px;
+                    &:after {
+                        content: url("/assets/images/filter-choosed.svg");
+                        position: absolute;
+                        left: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 951px) {
+    .headerFilter {
+        .filterMenu {
+            li {
+                a {
+                    padding: 16px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .filterWorksMobile {
+        position: fixed;
+        bottom: 24px;
+        display: flex;
+        justify-content: center;
+        @include m-p(0, 0);
+        width: 100%;
+        .iconFilter {
+            display: flex;
+            cursor: pointer;
+            border-radius: 90px;
+            padding: 17px;
+            background: white;
+            box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.35);
+            .iconImg {
+                height: 20px;
+            }
+        }
+        .headingFilter {
+            display: none;
+        }
+        .filters {
+            display: none;
+            position: absolute;
+            @include m-p(0, 0);
+            bottom: 68px;
+            li {
+                display: inline;
+                box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.35);
+                &:not(:last-child) {
+                    margin-right: 4px;
+                }
+                a {
+                    font: 600 10px InterMedium;
+                    color: black;
+                    background: white;
+                    border-radius: 90px;
+                    padding: 10px 20px;
+                    box-shadow: 0px 0px 44px rgba(0, 0, 0, 0.35);
+                }
+            }
+            &.active {
+                display: flex;
+            }
+        }
+    }
+    .topLevelLi:last-child {
+        margin-right: 26px;
+    }
+    .topLevelLi {
+        .filterMenu {
+            position: fixed;
+            top: auto; 
+            left: 46px!important;
+            right: auto!important;
+        }
+    }
+}

@@ -1,0 +1,178 @@
+@import "../../shared/mixins/mixins.scss";
+
+.bckgrAuthModal {
+    @include dis-dir(flex, column);
+    justify-content: center;
+    @include w-h(auto, auto);
+    @include absolutePos(0, 0, 0, 0);
+    position: fixed;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.authModal {
+    position: relative;
+    background: white;
+    margin: auto;
+    padding: 80px;
+    max-width: 1050px;
+    .authModalHeading {
+        color: black;
+        font-weight: 500;
+        font-size: 39px;
+        max-width: 600px;
+        font-family: InterSemiBold;
+        line-height: 35px;
+        letter-spacing: -0.03em;
+    }
+    p {
+        color: black;
+        font-weight: 500;
+    }
+    .closeModal {
+        @include absolutePos(16px, 16px, "", "");
+        @include w-h(40px, 40px);
+        @include dis-dir(flex, row);
+        cursor: pointer;
+        justify-content: center;
+        background: #181818;
+        border-radius: 50%;
+        .closeModalImage {
+            width: 14px;
+        }
+    }
+    .confirmEnter {
+        display: flex;
+        margin-top: 24px;
+        .enterbutton {
+            font-weight: 500;
+            text-align: center;
+            background: rgb(0, 0, 0);
+            cursor: pointer;
+            padding: 20px 40px;
+            align-self: flex-start;
+            border: none;
+            p {
+                color: white;
+            }
+        }
+        .remembermeInput {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+            &:checked+label::before {
+                border-color: black;
+                background-color: black;
+                background-image: url("assets/images/checked.svg");
+            }
+            &:not(:disabled):not(:checked)+label:hover::before {
+                border-color: black;
+            }
+            &:not(:disabled):active+label::before {
+                background-color: black
+            }
+            &:focus:not(:checked)+label::before {
+                border-color: black;
+            }
+            &:disabled+label::before {
+                background-color: white;
+            }
+            &:not(:disabled):not(:checked)+label::before {
+                border-color: rgba(44, 44, 44, 0.2);
+            }
+            &+label {
+                display: inline-flex;
+                align-items: center;
+                user-select: none;
+                cursor: pointer;
+                &::before {
+                    content: '';
+                    display: inline-block;
+                    @include w-h(24px, 24px);
+                    flex-shrink: 0;
+                    flex-grow: 0;
+                    border: 1px solid rgba(44, 44, 44, 0.2);
+                    margin-right: 16px;
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: 75%;
+                }
+            }
+        }
+        .rememberme {
+            align-self: center;
+            margin: 0;
+            margin-left: 32px;
+            cursor: pointer;
+            display: flex;
+            .remembermeField {
+                @include w-h(24px, 24px);
+                border: none;
+                margin: 0;
+                margin-right: 16px;
+                cursor: pointer;
+            }
+            .remembermeText {
+                font: 500 14px InterMedium;
+                align-self: center;
+            }
+        }
+    }
+    .authForm {
+        @include dis-dir(flex, column);
+        justify-content: center;
+        margin-top: 48px;
+        p {
+            margin-top: 0;
+        }
+        .showPass {
+            @include absolutePos(56px, 18px);
+            opacity: 0.5;
+            cursor: pointer;
+            &.active {
+                opacity: 1;
+            }
+        }
+        .inputfield:focus,
+        .inputfield:hover {
+            border-color: rgba(44, 44, 44, 1);
+        }
+        .button.active {
+            background: white;
+            p {
+                color: black;
+            }
+        }
+    }
+    .headingPic {
+        vertical-align: top;
+        margin-left: 10px;
+    }
+    .authFormLow {
+        margin-top: 32px;
+        display: flex;
+        p {
+           font: 500 14px InterMedium; 
+        }
+        .authFormLowItem {
+            text-decoration: underline;
+            cursor: pointer; 
+        }
+        .slash {
+            margin: 0 16px;
+        }
+    }
+    .enterbutton, .enterbutton:active {
+        text-decoration: none;
+    }
+    .logwithhelp {
+        @include w-h(60px, 60px);
+        margin: 50px 0 0 20px;
+        background: #181818;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    .logwithhelpIcon {
+        margin: 18px;
+    }
+}

@@ -1,0 +1,67 @@
+//images
+import "./assets/images/favicon.ico";
+
+import "./assets/images/activate-pic.png";
+import "./assets/images/restore-pic.png";
+import "./assets/images/restorepsw-pic.png";
+import "./assets/images/bonfire.svg";
+import "./assets/images/burger-open.svg";
+import "./assets/images/burger-close.svg";
+import "./assets/images/choosed-symbol.png";
+import "./assets/images/coins.svg";
+import "./assets/images/cross-black.svg";
+import "./assets/images/cross-white.svg";
+import "./assets/images/checked.svg";
+import "./assets/images/day.svg";
+import "./assets/images/filter-mobile.svg";
+import "./assets/images/filter-desktop.svg";
+import "./assets/images/filter-choosed.svg";
+import "./assets/images/filter-symbol.svg";
+import "./assets/images/firstplace.svg";
+import "./assets/images/secondplace.svg";
+import "./assets/images/thirdplace.svg";
+import "./assets/images/google.svg";
+import "./assets/images/inst.svg";
+import "./assets/images/leaf-arrow.svg";
+import "./assets/images/leaf-long.svg";
+import "./assets/images/logo.svg";
+import "./assets/images/logout.svg";
+import "./assets/images/medal.svg";
+import "./assets/images/man.svg";
+import "./assets/images/menusymbol.svg";
+import "./assets/images/prompt_arrow.svg"
+import "./assets/images/night.svg";
+import "./assets/images/smile.svg";
+import "./assets/images/upload-symbol.png";
+import "./assets/images/upload-symbol-warning.png";
+import "./assets/images/vk.svg";
+import "./assets/images/warning.svg";
+import "./assets/images/warning-upload.svg";
+import "./assets/images/warning-upload-close.svg";
+import "./assets/images/work-redact.svg";
+import "./assets/images/work-delete.svg";
+import "./assets/images/youtube-button.png";
+import "./assets/images/arrow-sidebar.svg";
+import "./assets/images/inst-sidebar.svg";
+import "./assets/images/youtube-sidebar.svg";
+import "./assets/images/show-pass.svg";
+
+import "./assets/images/avatars/avatar1.png";
+import "./assets/images/avatars/avatar2.png";
+import "./assets/images/avatars/avatar3.png";
+import "./assets/images/avatars/avatar4.png";
+import "./assets/images/avatars/avatar5.png";
+import "./assets/images/avatars/avatar6.png";
+import "./assets/images/avatars/avatar7.png";
+import "./assets/images/avatars/avatar8.png";
+
+//fonts
+import "./assets/fonts/DidactGothic/DidactGothic.ttf";
+import "./assets/fonts/Raleway/Raleway-Light.ttf";
+import "./assets/fonts/Inter/Inter.ttf";
+import "./assets/fonts/Inter/Inter-Black.ttf";
+import "./assets/fonts/Inter/Inter-Bold.ttf";
+import "./assets/fonts/Inter/Inter-Light.ttf";
+import "./assets/fonts/Inter/Inter-Medium.ttf";
+import "./assets/fonts/Inter/Inter-Regular.ttf";
+import "./assets/fonts/Inter/Inter-SemiBold.ttf";

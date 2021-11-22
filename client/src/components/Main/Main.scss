@@ -1,0 +1,91 @@
+@import "../../shared/mixins/mixins.scss";
+
+%button {
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+    border: none;  
+    opacity: 1;
+    height: 49px;
+    line-height: 49px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    @include m-p(0, 0);
+    cursor: default;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    overflow-y: scroll; 
+    background-color: black;
+    &.modalOpened {
+        @include absolutePos(0, 0, 0, 0, fixed);
+    }
+}
+
+@include ff('Raleway', '/assets/fonts/Raleway-Light.ttf');
+@include ff('Didact Gothic', '/assets/fonts/DidactGothic.ttf');
+@include ff('Inter', '/assets/fonts/Inter.ttf');
+@include ff('InterBlack', '/assets/fonts/Inter-Black.ttf');
+@include ff('InterBold', '/assets/fonts/Inter-Bold.ttf');
+@include ff('InterLight', '/assets/fonts/Inter-Light.ttf');
+@include ff('InterMedium', '/assets/fonts/Inter-Medium.ttf');
+@include ff('InterRegular', '/assets/fonts/Inter-Regular.ttf');
+@include ff('InterSemiBold', '/assets/fonts/Inter-SemiBold.ttf');
+
+h1, h2, h3, h4, p {
+    @include m-p(0, 0);
+}
+
+h2 {
+    @include fonter(Inter, 60px, 400, white);
+}
+
+p, .button, .enterbutton, span {
+    @include fonter(Inter, '', 600, white);
+}
+
+h3 {
+    @include fonter(Inter, 24px, 500, white);
+}
+
+h4 {
+    @include fonter(Inter, 20px, '', white);
+}
+
+.button {
+    @extend %button;
+}
+
+.main {
+    background-color: black;
+}
+
+@media (min-width: 951px) {
+    .moveSidebar {
+        margin-left: 301px;
+    }
+}
+
+.flexrow {
+    @include dis-dir(flex, row);
+}
+
+.flexcolumn {
+    @include dis-dir(flex, column)
+}
+
+.button.battleNotEnd p:after {
+    content: url(/assets/images/bonfire.svg);
+    margin-left: 5px;
+    & + a > p {
+        content: '';
+    }
+}
+

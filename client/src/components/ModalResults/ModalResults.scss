@@ -1,0 +1,139 @@
+@import "../../shared/mixins/mixins.scss";
+
+.modalWrapper {
+    @include dis-dir(flex, column);
+    justify-content: center;
+    @include absolutePos(0, 0, 0, 0);
+    position: fixed;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.6);
+    .closeModal {
+        @include absolutePos(13px, -70px);
+        @include w-h(32px, 32px);
+        @include dis-dir(flex, row);
+        cursor: pointer;
+        justify-content: center;
+        background: rgba(29, 29, 29, 1);
+        border-radius: 50%;
+        .closeModalImage {
+            width: 14px;
+        }
+    }
+    .scrollModalWrapper {
+        max-height: 457px;
+        margin: auto;
+        width: 293px;
+    }
+    .scrollTrack {
+        height: 479px;
+        width: 391px;
+        background-color: rgba(31, 31, 31, 1);
+    }
+    .scrollThumb {
+        background-color: white;
+        width: 1px;
+        margin-left: auto;
+    }
+    .modalResults {
+        @include w-h(455px, 590px);
+        background-color: rgba(31, 31, 31, 1);
+        margin: auto;
+        color: white;
+        position: relative;
+        border: solid 1px #2c2c2c;
+        .modalResultsHeader {
+            position: sticky;
+            top: 0px;
+            height: 64px;
+            margin-right: 82px;
+        }
+        .closeModalBlock {
+            display: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            &:not(:first-of-type) {
+                margin-top: 32px;
+            }
+        }
+        thead {
+            font: 400 18px InterSemiBold;
+            td {
+                padding: 16px 0;
+            }
+            &:first-of-type td {
+                padding-top: 0;
+                width: 100%;
+            }
+        }
+        tbody {
+            font: 400 12px InterRegular;
+            td {
+                padding: 8px 0;
+            }
+        }
+        tr {
+            border-bottom: 1px solid #2C2C2C;
+        }
+        .grade {
+            font: 500 14px InterBold;
+            text-align: right;
+        }
+        .gradeDetailed {
+            text-align: right;
+            padding-left: 20px;
+        }
+        tbody
+        .gradeDetailed {
+            font: 500 12px InterBold;
+        }
+    }
+}
+
+@media (max-width: 540px) {
+    .modalWrapper {
+        .closeModalBlock {
+            display: flex;
+            background-color: black;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 88px;
+        }
+        .closeModal {
+            @include absolutePos(13px, -70px);
+            @include w-h(48px, 48px);
+            @include dis-dir(flex, row);
+            position: static;
+            margin: auto;
+            cursor: pointer;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            .closeModalImage {
+                width: 14px;
+            }
+        }
+        .emptyCloseModalBlock {
+            height: 88px;
+        }
+        .modalResults {
+            @include w-h(100%, 100%);
+            padding: 32px 16px;
+            border: none;
+            background: black;
+            .scrollModalWrapper {
+                max-height: 100%;
+                width: auto;
+            }
+            table:not(:first-of-type) {
+                margin-top: 24px;
+            }
+            .nameDetailed {
+                width: 100%;
+            }
+        }
+    }
+}

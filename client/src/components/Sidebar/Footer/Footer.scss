@@ -1,0 +1,55 @@
+.linkEvent{
+    display: block;
+    padding: 20px 16px 35px 28px;
+    overflow: hidden;
+    .eventTop{
+        position: relative;
+        .eventDate{
+            font-family: Inter;
+            font-weight: 600;
+            font-size: 50px;
+            line-height: 61px;
+            color: #FFFFFF;
+            z-index: 10;
+            position: relative;
+        }
+        .eventColor{
+            width: 145px;
+            height: 219px;
+            left: 199px;
+            top: -146px;
+            filter: blur(55px);
+            transform: rotate(48.72deg);
+            position: absolute;
+        }
+    }
+    .eventBottom{
+        display: flex;
+        align-items: flex-end;
+        margin-top: 21px;
+        justify-content: space-between;
+        .eventTheme{
+            font-family: Inter;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 19px;
+            color: #FFFFFF;
+            font-style: normal;
+            max-height: 57px;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+    }
+}
+.social{
+    padding: 12px 20px 10px 20px;
+    .socialLink{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        &:not(:first-child){
+            margin-left: 12px;
+        }
+    }
+    
+}

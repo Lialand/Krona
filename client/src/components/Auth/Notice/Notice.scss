@@ -1,0 +1,32 @@
+.noticeBlock {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 16px;
+    margin-top: 25px;
+    .noticeMessage {
+        display: flex;
+        align-items: center;
+        font: 500 14px InterMedium;
+    }
+    .closeNotice {
+        cursor: pointer;
+    }
+    &.success {
+        background-color: green;
+        .noticeMessage {
+            color: white;
+        }
+    }
+    &.error {
+        background-color: #FEEAEA;
+        .noticeMessage {
+            color: #FF0000;
+        }
+        .noticeMessage:before {
+            content: url("/assets/images/warning.svg");
+            line-height: 13px;
+            margin-right: 6px;
+        }
+    }
+}

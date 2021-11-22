@@ -1,0 +1,67 @@
+@import "../../../shared/mixins/mixins.scss"; 
+
+.bckgrMessageModal {
+    @include dis-dir(flex, column);
+    justify-content: center;
+    @include w-h(auto, auto);
+    @include absolutePos(0, 0, 0, 0);
+    position: fixed;
+    z-index: 4;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.messageModal {
+    position: relative;
+    background: white;
+    margin: auto;
+    padding: 80px;
+    max-width: 1050px;
+    .messageModalHeading {
+        color: black;
+        font-weight: 500;
+        font-size: 39px;
+        max-width: 600px;
+        font-family: InterSemiBold;
+        line-height: 35px;
+        letter-spacing: -0.03em;
+    }
+    .description {
+        font: 500 14px InterMedium;
+        color: black;
+        margin-top: 48px;
+        a {
+            color: black;
+            text-decoration: underline;
+        }
+    }
+    .closeModal {
+        @include absolutePos(16px, 16px, "", "");
+        @include w-h(40px, 40px);
+        @include dis-dir(flex, row);
+        cursor: pointer;
+        justify-content: center;
+        background: #181818;
+        border-radius: 50%;
+        .closeModalImage {
+            width: 14px;
+        }
+    }
+    .enterbutton {
+        display: block;
+        font-weight: 500;
+        background: rgb(0, 0, 0);
+        cursor: pointer;
+        padding: 20px 40px;
+        border: none;
+        margin-top: 24px;
+        color: white;
+        font: 500 14px InterMedium;
+    }
+    .headingPic {
+        vertical-align: top;
+        margin-left: 10px;
+    }
+    .enterbutton, .enterbutton:active {
+        text-decoration: none;
+    }
+}

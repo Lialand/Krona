@@ -1,0 +1,51 @@
+@import "../../../shared/mixins/mixins.scss"; 
+
+.restore {
+    @include w-h(100%, 100vh);
+    @include dis-dir(flex, column);
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    input {
+        outline: none;
+    }
+    .restoreHeading {
+        font: 500 39px InterBold; 
+        margin-top: 48px;
+        max-width: 470px;
+        text-align: center;
+        letter-spacing: -0.05em;
+        color: black;
+    }
+    .prompt {
+        font: 500 14px InterMedium;
+        color: black;
+        margin-top: 48px;
+    }
+    .inputKey {
+        width: 280px;
+        border: 1px solid rgba(44, 44, 44, 0.2);
+        color: #565656;
+        font: 500 14px InterMedium;
+        background-color: white!important;
+        padding: 20px;
+        margin-top: 16px;
+        box-shadow: inset 0 0 0 50px #fff;
+        -webkit-text-fill-color: #000;
+        &:focus,
+        &:hover {
+            border-color: rgba(44, 44, 44, 1);
+        }
+    }
+    .enterbutton {
+        display: block;
+        font-weight: 500;
+        background: rgb(0, 0, 0);
+        cursor: pointer;
+        padding: 20px 40px;
+        border: none;
+        margin-top: 24px;
+        color: white;
+        font: 500 14px InterMedium;
+    }
+}

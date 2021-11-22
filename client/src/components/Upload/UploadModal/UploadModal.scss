@@ -1,0 +1,221 @@
+@import "../../../shared/mixins/mixins.scss";
+
+.uploadModal {
+    background: white;
+    margin: auto;
+    border-radius: 5px;
+    h4 {
+        margin: 50px 0 0 45px;
+    }
+    a {
+        text-decoration: none;
+    }
+    .inputFile {
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+    }
+    .workUploadWindow {        
+        @include dis-dir(flex, column);
+        justify-content: center;
+        background: white;
+        margin-top: 30px;
+        label { 
+            @include w-h(600px, 430px);
+            border-radius: 5px;
+            background-position: center top;
+            background-repeat: no-repeat !important;
+            position: relative;
+            @include dis-dir(flex, column);
+            justify-content: center;
+            .errorMessage {
+                @include absolutePos("", "", 30px, "");
+                background: #E90808;
+                padding: 10px 30px;
+                border-radius: 45px;
+                align-self: center;
+                color: white;
+                z-index: 1;
+                #errorMessageUploadText {
+                    font: 400 16px InterRegular;
+                    b {
+                        font: 700 16px InterMedium;
+                    }
+                }
+                .iconWarning {
+                    margin-right: 14px;
+                }
+                .iconWarningClose {
+                    margin-left: 20px;
+                    margin-bottom: -3px;
+                    cursor: pointer;
+                }
+            }
+            .progressBarWrapper {
+                @include absolutePos("", "", 0, "");
+                height: 5px;
+                background: rgba(196, 232, 216, 1);
+                width: 100%;
+                .progressBar {
+                    @include absolutePos("", "", 0, "");
+                    height: 5px;
+                    background: rgba(6, 182, 103, 1);
+                }
+            }
+            .icon {
+                @include absolutePos(-20px, 0, "", "");
+                cursor: pointer;
+            }
+            .iconDelete {
+                right: 20px;
+            }
+            .iconRedact {
+                right: 70px;
+            }
+            .uploadWindowText {
+                width: 330px;
+                margin: 0 auto;
+                margin-top: 10px;
+            }
+            .uploadField {
+                @include w-h(845px, 615px);
+            }
+            .uploadWindowDescription {
+                margin: 0 auto;
+                text-align: center;
+                color: black;
+            }
+            .uploadWindowAlert {
+                text-align: center;
+                color: black;
+                background: white;
+                width: fit-content;
+                margin: 0 auto;
+                padding: 0px 5px;
+                border-radius: 5px;
+            }
+            &.dragOver {
+                opacity: 0.6; 
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+        .opacity {
+            opacity: 0.3;
+            line-height: 150%;
+            margin-top: 7px;
+            font-size: 16px;
+            font-weight: 600;
+            color: black;
+        }
+        small {
+            font-size: 16px;
+        }
+        .instruction {
+            @include fonter('InterSemiBold', 24px, 500, rgba(35, 35, 35, 1));
+            margin-top: 10px;
+        }
+        .uploadWindowAlert p {
+            margin-top: 300px;
+            @include fonter('Raleway', 24px, 600, black);
+            &.error {
+                color: red;
+            }
+        }
+    }
+    .workinfo {
+        @include dis-dir(flex, column);
+        p:first-child {
+            margin-top: 30px;
+            @include fonter("InterRegular", 12px, 400, rgba(119, 119, 119, 1));
+        }
+        .workinfoHeading {
+            width: 356px;
+            p {
+                text-align: start;
+                color: black;
+            }
+            p + p {
+                @include fonter('Raleway', 16px, 400, '');
+                opacity: 1;
+                line-height: 25.6px;
+                margin-top: 20px;
+            }
+        }
+    }
+    .inputfield {
+        @include fonter("InterMedium", 16px, 500, rgba(40, 40, 40, 1));
+        @include w-h(600px, 175px);
+        padding: 15px;
+        border: 2px solid rgba(211, 211, 211, 1);
+        border-radius: 5px;
+        resize: none;
+        outline-color: rgba(6, 182, 103, 1);
+        margin-top: 10px;
+        &.checking {
+            border: none;
+            overflow: auto;
+            word-break: break-all;
+            padding: 0;
+            white-space: wrap;
+        }
+    }
+    .inputfield:focus {
+        border: 2px solid white;
+        border-radius: 5px;
+        color: black;
+    }
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        max-width: 600px;
+        .button {
+            @include fonter("InterSemiBold", 16px, 500, "");
+            padding: 15px 30px;
+            border-radius: 65px;
+            cursor: pointer;
+            line-height: normal;
+        }
+        .back {
+            color: rgba(13, 13, 13, 1);
+            background-color: rgba(225, 225, 225, 1);
+        }
+        .send {
+            color: rgba(255, 255, 255, 1);
+            background-color: rgba(6, 182, 103, 1);
+            img {
+                margin-left: 4px;
+            }
+        }
+        .button.exitUpload {
+            margin-left: 0;
+            background: black;
+            border: none;
+            p {
+                color: white;
+            }
+        }
+    }
+}
+
+.successModal {
+    margin: auto;
+    text-align: center;
+    @include dis-dir(flex, column);
+    @include fonter(InterMedium, 36px, 500, 232323);
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 50px;
+    button {
+        font: 600 16px InterSemiBold;
+        color: white;
+        cursor: pointer;
+        border-radius: 65px;
+        padding: 15px 60px;
+        background: #06B667;
+        text-align: center;
+        border: 1px solid #000000;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+}

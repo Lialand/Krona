@@ -1,0 +1,46 @@
+@import "../../../shared/mixins/mixins.scss";
+
+.authInputs {
+    display: flex;
+    flex-wrap: wrap;
+    input[type=password] {
+        padding-right: 50px;
+    }
+    .inputGroup {
+        @include dis-dir(flex, column);
+        position: relative;
+        margin-bottom: 10px; //Сделано временно
+        &:not(:nth-of-type(3)) {
+            margin-right: 24px;
+        }
+    }
+    .inputInfo {
+        font: 500 14px InterMedium;
+        color: black;
+    }
+    input {
+        outline: none;
+    }
+    .inputfield {
+        width: 280px;
+        border: 1px solid rgba(44, 44, 44, 0.2);
+        color: #565656;
+        font: 500 14px InterMedium;
+        background-color: white!important;
+        padding: 20px;
+        margin-top: 16px;
+        box-shadow: inset 0 0 0 50px #fff;
+        -webkit-text-fill-color: #000;
+    }
+    &.error {
+        .inputfield {
+            &.necessarily {
+                border-color: red;
+            }
+            &:focus, 
+            &:hover {
+                border-color: red;
+            }
+        }
+    }
+}

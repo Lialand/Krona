@@ -1,0 +1,43 @@
+@import "../../shared/mixins/mixins.scss";
+
+.materialsHeading {
+    font: 400 16px InterRegular;
+    color: rgba(187, 187, 187, 1);
+    max-width: 924px;
+    margin: 32px auto 0 auto;
+    line-height: 21px;
+    padding: 0 16px;
+}
+
+.materials {
+    padding: 48px 16px;
+    display: grid;
+    gap: 40px;
+    .materialsBlock {
+        display: block;
+        height: 100%;
+        cursor: pointer;
+        overflow: hidden;
+        .pictureContainer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .youtubeButton {
+            position: absolute;
+            @include w-h(50px, 50px);
+        }
+        .description {
+            font: 400 12px InterRegular;
+            margin-top: 12px;
+        }
+    }
+    .materialsPicture {
+        width: 100%;
+        background: url("assets/images/youtube-button.png") no-repeat center;
+    }
+    .materialsVideo {
+        @include w-h(100%, auto);
+    }
+}

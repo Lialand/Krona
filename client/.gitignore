@@ -1,0 +1,12 @@
+node_modules/
+../server/
+../doc/
+../SeleniumTest
+package-lock.json
+server.js
+testJSON/
+bundle.js
+bundle.js.LICENSE
+style.css
+.idea/
+build/

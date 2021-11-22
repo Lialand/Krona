@@ -1,0 +1,162 @@
+@import "../../shared/mixins/mixins.scss";
+
+.workViewing {
+    @include dis-dir(flex, column);
+    justify-content: flex-start;
+    position: relative;
+    @include fonter(Inter, 16px, 400, white);
+    .versionButtons {
+        display: flex;
+        height: 100%;
+        .oldVersBtn,
+        .newVersBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: 500 10px InterMedium;
+            text-transform: uppercase;
+            color: rgba(196, 196, 196, 1);
+            cursor: pointer;
+            border: 1px solid #2C2C2C;
+            background-color: black;
+            padding: 18px 26px;
+            white-space: nowrap;
+            &.active {
+                border-bottom-color: #FFFFFF;
+                color: white;
+                position: relative;
+            }
+        }
+        .newVersBtn {
+            border-left: none;
+        }
+    }
+    .adaptiveShow {
+        display: none;
+    } 
+    .thumbnailInfo {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+    }
+    .leaf {
+        position: fixed;
+        top: 50%;
+        border-radius: 50%;
+        border: 2px solid #FFFFFF;
+        background: url("assets/images/leaf-arrow.svg") no-repeat;
+        background-color: black;
+        @include w-h(50px, 50px);
+        cursor: pointer;
+        &.leaf-back {
+            left: 321px;
+            background-position: 17px 17px;
+        }
+        &.leaf-forward {
+            transform: rotate(180deg);
+            right: 20px;
+            background-position: 17px 15px;
+        }
+    }
+    .leaf-back-works {
+        @include absolutePos(27px, "", "", -80px);
+        display: inline-block;
+        cursor: pointer;
+        background: #181818;
+        @include w-h(40px, 40px);
+        min-width: 40px;
+        text-align: center;
+        border-radius: 55px;
+        img {
+            @include absolutePos(13px, 0, 0, 12px);
+        }
+    }
+}
+
+.workViewingHeader {
+    display: flex;
+    padding: 0 16px;
+    align-items: center;
+    height: 42px;
+    border: 1px solid #2C2C2C;
+    z-index: 1;
+    position: fixed;
+    background-color: black;
+    width: 100%;
+    .adaptiveShow {
+        display: none!important;
+    }
+}
+
+.workInfo {
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+    margin-top: 68px;
+    padding: 0 16px;
+    .workImage {
+        max-width: 1360px;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center center fixed;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 950px) {
+    .workViewing {
+        .leaf {
+            &.leaf-back {
+                left: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 780px) {
+    .workViewing {
+        min-width: 150px;
+        .workViewingHeader {
+            height: auto;
+            overflow: hidden;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0;
+            .versionButtons {
+                margin-left: 0;
+                width: 100%;
+                .oldVersBtn {
+                    border-left: none;
+                    width: 50%;
+                }
+                .newVersBtn {
+                    width: 50%;
+                }
+            }
+        }
+        .thumbnailInfo {
+            justify-content: space-between;
+            min-width: 150px;
+        }
+        .thumbnailInfo {
+            flex-direction: column;
+        }
+        .workInfo {
+            margin-top: 65px;
+            padding: 0;
+            &.onlyVersion {
+                margin-top: 115px;
+            }
+        }
+        .leaf {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    .workInfo {
+        width: 100%;
+    }
+}

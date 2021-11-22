@@ -1,0 +1,201 @@
+@import "../../shared/mixins/mixins.scss";
+
+.resultsTable {
+    color: white;
+    font-family: InterMedium; 
+    padding: 32px 16px;
+    max-width: 952px;
+    margin: 16px auto;
+    border-collapse: collapse;
+    .adaptiveName {
+        display: none;
+    }
+    .resultsCaption {
+        text-align: left;
+        margin-bottom: 10px;
+        font: 500 25px Inter;
+    }
+    .thumbnail {
+        border-radius: 50%;
+        background: #565656;
+        @include w-h(32px, 32px);
+        cursor: pointer;
+    }
+    .blockMedal {
+        @include absolutePos(0, 0);
+    }
+    .username {
+        align-items: center;
+        display: flex;
+        .resultsNumber {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            font-size: 16px;
+            margin-left: 25px;
+        }   
+        .userLink {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            color: white;
+            margin-left: 15px;
+            word-break: break-all;
+        }
+    }
+    .work {
+        width: 30%;
+    }
+    .score {
+        width: 30%;
+        text-align: right;
+    }
+    .place {
+        text-align: center;
+        min-width: 90px;
+        display: flex;
+    }
+    .placeImage {
+        margin-right: 10px;
+    }
+    .placeText {
+        display: inline-block;
+    }
+    .workItem {
+        position: relative;
+        @include w-h(40px, 40px);
+        border-radius: 50%;
+        background-color: #232323;
+        background-size: cover;
+        display: block;
+        margin: 0 auto;
+    }
+    .scoreItem {
+        @include w-h(40px, 40px);
+        border-radius: 50%;
+        position: relative;
+        text-align: center;
+        line-height: 38px;
+        font-size: 14px;
+        margin-left: auto;
+        cursor: pointer;
+        overflow: hidden;
+        .scoreItemIn {
+            position: absolute;
+            @include w-h(36px, 36px);
+            margin: 2px;
+            border-radius: 50%;
+            background-color: black;
+        }
+        .scoreItemProgress {
+            @include w-h(160px, 100px);
+            background: white;
+            position: absolute;
+            top: -98px;
+            left: 5px; 
+            transform: rotate(20deg); //Круг заполняется от 20 до 107
+            transform-origin: 25px 81px;
+        }
+    }
+    tr {
+        border-bottom: 1px solid #232323;
+        padding: 16px;
+    }
+    .resultsTHead,
+    .resultsTBody {
+        padding: 20px 0;
+    }
+    .resultsTHead {
+        font: 500 10px "InterSemiBold";
+    }
+    .resultsTBody {
+        font-family: "InterRegular";
+        font-size: 12px;
+        &.username {
+            min-height: 81px;
+        }
+    }
+    .leafDownBlock {
+        @include absolutePos(80%, 0, 0, 0);
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #000000 100%);
+    }
+}
+
+@media (max-width: 780px) {
+    .resultsTable {
+        margin: 0;
+        width: 100%;
+        padding: 0;
+        thead,
+        .thumbnailLink {
+            display: none;
+        }
+        tr {
+            display: flex;
+            border-bottom: 1px solid #232323;
+        }
+        .place {
+            margin-left: auto;
+            justify-content: flex-end;
+            min-width: 25px;
+        }
+        .placeText {
+            display: none;
+        }
+        .placeImage {
+            margin-right: 0;
+        }
+        .resultsTBody {
+            width: auto;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+            flex-shrink: 0;
+            &.username {
+                min-height: auto;
+                width: auto;
+                overflow: hidden;
+                flex-shrink: 1;
+                .userLink {
+                    margin-left: 8px;
+                    font-size: 16px;
+                    height: 20px;
+                }
+                .resultsNumber {
+                    margin-left: 0;
+                    margin-top: 2px;
+                }
+            }
+            &.work {
+                margin-right: 8px;
+                padding-left: 15px;
+            }
+        }
+        .workItem {
+            margin: 0;
+            @include w-h(39px, 39px);
+        }
+        .scoreItem {
+            margin: 0;
+            @include w-h(39px, 39px);
+            .scoreItemIn {
+                @include w-h(37px, 37px);
+                margin: 1px;
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .resultsTable {
+        .score {
+            width: auto;
+        }
+    }
+}
+@media (max-width: 1300px) and (min-width: 951px) {
+    .resultsTable {
+        margin: 0 16px;
+        margin-top: 16px;
+    }
+}

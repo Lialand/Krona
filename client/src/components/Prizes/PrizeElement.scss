@@ -1,0 +1,49 @@
+.containerPrize {
+    width: 322px;
+    height: 200px;
+    border: 1px solid #565656;
+    box-sizing: border-box;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 27px;
+    text-align: center;
+    opacity: 1;
+    margin-left: 20px;
+
+    .placeCircle {
+        border-radius: 50%;
+        width: 91px;
+        height: 90px;
+        padding: 20px;
+        background-color: #181818;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 12px;
+        font-weight: 400;
+        line-height: 1.75;
+		margin-left: 30px;
+
+        .placeCircleNumber {
+            font-weight: 500;
+            font-size: 30px;
+            line-height: 160%;
+        }
+
+        .place {
+            opacity: 0.4;
+            font-size: 14px;
+            line-height: 160%;
+        }
+    }
+
+    .placeText {
+        text-align: center;
+		width: 97px;
+		margin-right: 30px;
+    }
+}

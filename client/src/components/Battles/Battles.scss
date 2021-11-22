@@ -1,0 +1,140 @@
+@import "../../shared/mixins/mixins.scss";
+
+.contentBattles {
+    padding: 0 48px;
+    padding-bottom: 24px;
+    display: grid;
+    gap: 40px;
+    .battleCover {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+        .battleCoverImage {
+            @include w-h(100%, auto);
+            cursor: pointer;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,.5);
+        }
+    }
+    .battleInfoWrapper {
+        display: flex;
+        @include absolutePos(0, 0, 0, 0);
+    }
+    .battleInfo {
+        text-align: center;
+        margin: auto;
+        z-index: 1;
+        width: 100%;
+    }
+    .battleStatus {
+        background-color: white;
+        color: black;
+        font: 500 10px InterMedium;
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 50px;
+        text-transform: uppercase;
+    }
+    .worksCount {
+        @include fonter(InterRegular, 12px, 400, white);
+    }
+    .battleFooter {
+        background-color: black;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+        gap: 8px;
+        margin-top: 16px;
+        .users {
+            display: flex;
+            .thumbnail,
+            .usersCountBlock {
+                border-radius: 50%;
+                @include w-h(24px, 24px);
+            }
+            .thumbnail {
+                margin-right: 4px;
+                background: #565656;
+            }
+            .usersCountBlock {
+                border: 1px solid #9B9B9B;
+                position: relative;
+                flex-shrink: 0;
+                .manpic {
+                    position: absolute;
+                    z-index: 1;
+                    bottom: 8px;
+                    left: 8px;
+                }
+                .usersCount {
+                    font: 400 10px InterRegular;
+                    color: rgba(155, 155, 155, 1);
+                    position: absolute;
+                    bottom: -6px;
+                    right: -8px;
+                    text-align: center;
+                    background: black;
+                    padding: 3px;
+                    padding-top: 1px;
+                }
+            }
+        }
+    }
+    .battleName {
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .battleDates {
+        text-align: right;
+        font: 400 12px InterRegular;
+    }
+    .category {
+        background-color: rgba(58, 58, 58, 1);
+        border-radius: 50px;
+        padding: 2px 4px;
+        text-align: center;
+        text-transform: uppercase;
+        font: 500 8px InterMedium;
+        color: white;
+        margin: auto;
+        margin-right: 0;
+    }
+    .linkToWorks {
+        cursor: pointer;
+        position: relative;
+        flex-direction: column;
+        display: flex;
+        justify-content: space-between;
+    }
+    .linkToWorks:hover {
+        .battleCoverImage {
+            transform: scale(1.07);
+        }
+        .battleCover::after {
+            background: rgba(0,0,0,.7);
+        }
+    }
+    h4 {
+        @include fonter(InterSemiBold, 18px, 500, white);
+        margin: 0 20px;
+        overflow: hidden;
+    }
+}
+
+//adaptive
+@media (max-width: 950px) {
+    .contentBattles  {
+        padding: 0 16px;
+        padding-bottom: 24px;
+    }
+}

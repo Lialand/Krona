@@ -1,0 +1,122 @@
+@import "../../shared/mixins/mixins.scss";
+
+.contentText {
+    @include dis-dir(flex, column);
+    max-width: 924px;
+    padding: 32px 16px;
+    margin: 0 auto;
+    section:not(:first-child) {
+        margin-top: 40px;
+    }
+    section > ol:last-child,
+    section > ul:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        ul:last-child, 
+        ol:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+    }
+    &, * {
+        color: #BBBBBB;
+        font: 400 16px/21px InterRegular;
+        line-height: 24px;
+    }
+    strong {
+        color: white;
+        font: 600 16px InterRegular;
+    }
+    b {
+        color: white;
+        font-weight: 600;
+    }
+    h1 {
+        color: white;
+        font: 600 28px InterSemiBold;
+        padding: 0;
+    }
+    h2 {
+        color: white;
+        font: 600 24px InterSemiBold;
+    }
+    h3 {
+        color: white;
+        font: 600 20px InterSemiBold;
+    }
+    ul, ol {
+        padding: 15px;
+        padding-bottom: 0;
+        margin-bottom: 30px;
+    }
+    b {
+        display: contents;
+    }
+    i {
+        font-family: 'InterLight';
+    }
+    a {
+        color: white;
+        text-decoration: underline;
+    }
+    p {
+        margin: 10px 0;
+    }
+    // h4:first-child {
+    //     margin: 0;
+    // }
+    // h4 {
+    //     margin: 55px 0 0 0;
+    // }
+    // h4 + li, h4 + p {
+    //     margin-top: 30px;
+    // }
+    // ul { 
+    //     padding: 0;
+    //     list-style-type: disc;
+    //     margin-left: 0;
+    //     li {
+    //         display: list-item;
+    //         margin: 0 0 5px 20px;;
+    //     }
+    // }
+    // li {
+    //     line-height: 25.6px;
+    //     color: white;
+    //     width: 596px;
+    // }
+    // .bold {
+    //     font-weight: bold;
+    // }
+    // span.bold {
+    //     margin-top: 25px;   
+    // }    
+    // &.mission {
+    //     li {
+    //         margin-top: 25px;
+    //     }
+    //     ul {
+    //         margin: 25px 0 0 0;
+    //         li {
+    //             margin: 0 0 5px 20px;
+    //         }
+    //     }
+    //     ul.thinkabout {
+    //         margin-top: 0;
+    //     }
+    // }
+    // div:last-child {
+    //     margin-top: 25px;
+    //     width: 600px;
+    //     a {
+    //         text-decoration: underline;
+    //         color: white;
+    //     }
+    // }
+}
+
+@media (max-width: 780px) {
+    .contentText {
+        width: auto;
+    }
+}
