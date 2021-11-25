@@ -1,5 +1,7 @@
 import axios from "axios";
-import getImageSizes from "../../shared/utils/getImageSizes";
+
+import store from "reduxFolder/store/Store";
+import { getAuth } from "reduxFolder/actions/AjaxActions";
 
 //Предварительная проверка файла
 export function prevCheck(prevCheckArgs) {
@@ -63,7 +65,6 @@ export function checkImage(file, checkImageArgs, readImageArgs) {
 function readImage(reader, readImageArgs, file) { 
 
     const {
-        setTooWide,
         setError,
         setFileChoosed,
         setPreviewImage
@@ -73,30 +74,13 @@ function readImage(reader, readImageArgs, file) {
         setFileChoosed(true);
     };
 
-    reader.onload = () => {
-        getImageSizes(reader.result).then(
-            (resolve) => {
-                if (resolve.width > 2000) {
-                    setTooWide(true);
-                } else {
-                    setTooWide(false);
-                }
-
-                if (resolve.width < 1600) {
-                    setError({
-                        isError: true,
-                        text: `Файл <b>${file[0]?.name}</b> < 1600px по ширине`
-                    });
-                    setFileChoosed(false);
-                } else {
-                    setPreviewImage(`url("${reader.result}")`);
-                }
-            },
-            (reject) => {
-                console.log(reject);
-            }
-        );
-    };
+    reader.onload = () => setPreviewImage(`url("${reader.result}")`);
+    reader.onerror = () => {
+        setError({
+            isError: true, 
+            text: `Произошла ошибка при чтении изображения: ${file[0]?.name}`
+        })
+    }
 }
 
 //Функция для отправки формы с файлом, id баттла, id работы и комментарием
@@ -139,10 +123,19 @@ export function sendForm(sendFormArgs) {
             successUploaded();
         },
         (error) => {
-            setError({
-                isError: true,
-                text: error.response.data.message
-            });
+            if (error.response.status === 401) {
+                setError({
+                    isError: true,
+                    text: "Сначала авторизуйтесь"
+                });
+                store.dispatch(getAuth());
+            } else {
+                setError({
+                    isError: true,
+                    text: error.response.data.message
+                });
+            }
+            
         }
     );
 }

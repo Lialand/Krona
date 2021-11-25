@@ -13,7 +13,7 @@ import {
     logoutURL,
     registerURL,
     uploadURL,
-} from "../../shared/constants/URLs";
+} from "constants/URLs";
 import {
     WORKS_START,
     WORKS_DATA,
@@ -53,7 +53,7 @@ import {
     LAST_BATTLE_DATA
 } from "../actionsTypes/ActionTypes";
 
-import createWorksMap from "../../shared/utils/createWorksMap";
+import createWorksMap from "utils/createWorksMap";
 import { setStoreAuth } from "./Actions";
 
 //Запрос на получение всех работ по id баттла
@@ -72,6 +72,8 @@ export function getWorks(battleId = "zeroing") {
                 dispatch(dataWorks(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorWorks(err.message));
             });
     }
@@ -100,6 +102,8 @@ export function getMyWorks(battleId) {
                 dispatch(dataMyWorks(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorMyWorks(err.message));
             });
     }
@@ -128,6 +132,8 @@ export function getBattles() {
                 dispatch(dataBattles(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorBattles(err.message));
             });
     }
@@ -156,6 +162,8 @@ export function getLastBattle() {
                 dispatch(dataLastBattle(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorLastBattle(err.message));
             });
     }
@@ -184,6 +192,8 @@ export function getBattleDetailed(battleId) {
                 dispatch(dataBattleDetailed(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorBattleDetailed(err.message));
             });
     }
@@ -217,6 +227,8 @@ export function getWorkDetailed(workId) {
                 dispatch(dataWorkDetailed(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorWorkDetailed(err.message));
             });
     }
@@ -302,6 +314,8 @@ export function getRegistration() {
                 dispatch(dataRegistration(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorRegistration(err.message));
             });
     }
@@ -330,6 +344,8 @@ export function getActivation(activateUrl) {
             dispatch(dataActivation(res.data));
         })
         .catch(err => {
+            if (err.response.status === 401)
+                dispatch(getAuth());
             dispatch(errorActivation(err));
         })
     }
@@ -365,6 +381,8 @@ export function getResults(battleId = "zeroing") {
                 }));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorResults(err.message));
             });
     }
@@ -430,6 +448,8 @@ export function getLike(workId) {
                 dispatch(dataLike(res.data));
             })
             .catch(err => {
+                if (err.response.status === 401)
+                    dispatch(getAuth());
                 dispatch(errorLike(err.message));
             });
     }

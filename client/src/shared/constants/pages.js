@@ -3,6 +3,7 @@ export const works = `/works/` //страница всех работ баттл
 export const works_stage2 = `/works_stage2/` //страница всех работ баттла
 export const mission = "/mission/" //страница задания
 export const materials = "/materials/" //страница с матералами по баттлам
+export const moderate = "/moderate/" //страница с матералами по баттлам
 export const battles = "/battles/" //страница баттлов
 export const work_viewing = "/work_viewing/" //страница просмотра полной версии работы 
 export const results = "/results/" //страница итогов баттла

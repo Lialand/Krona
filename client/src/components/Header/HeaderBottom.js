@@ -6,7 +6,7 @@
      battles,
      results,
      battleWithParamURL
-} from "../../shared/constants/pages"; 
+} from "constants/pages"; 
 
 const BackButton = ({ workPage, battleName, battleId, prevPath }) => {
     return workPage

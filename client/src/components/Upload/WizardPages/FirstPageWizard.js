@@ -8,18 +8,18 @@ export default function FirstPageWizard(props) {
         setPage 
     } = props;
  
-     return (
+    return (
         <>
             <h3>Отправить работу на баттл</h3>
             <div className="flexrow">
                 <div className="buttons sendWork">
                     <button
-                        onClick={() => setChsdActive({refreshWork: true})}
+                        onClick={() => {setChsdActive({refreshWork: true}); setPage(2);}}
                         className="sendNewVersion"
                     >
                         <div
-                            className={"choosed-symbol" + (chsdActive.refreshWork ? " active" : "")}
-                        ></div>
+                            className={"choosed-symbol"}
+                        />
                         <p className="head-description">Обновить работу</p>
                         <p className="description">
                             Вы уже отправляли работу на данный баттл и хотите
@@ -27,12 +27,12 @@ export default function FirstPageWizard(props) {
                         </p>
                     </button>
                     <button
-                        onClick={() => setChsdActive({newWork: true})}
+                        onClick={() => {setChsdActive({newWork: true}); setPage(3)}}
                         className="sendNewWork"
                     >
                         <div
-                            className={"choosed-symbol" + (chsdActive.newWork ? " active" : "")}
-                        ></div>
+                            className="choosed-symbol"
+                        />
                         <p className="head-description">Отправить новую работу</p>
                         <p className="description">
                             Вы еще не отправляли работу на баттл или хотите прислать
@@ -41,7 +41,7 @@ export default function FirstPageWizard(props) {
                     </button>
                 </div>
             </div>
-            <div className="buttons move firstScreen">
+            {/* <div className="buttons move firstScreen">
                 <button
                     className="continue"
                     onClick={() =>
@@ -52,7 +52,7 @@ export default function FirstPageWizard(props) {
                 >
                     Продолжить
                 </button>
-            </div>
+            </div> */}
         </>
                          
      );

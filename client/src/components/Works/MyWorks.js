@@ -4,20 +4,20 @@
 
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
-import ItemWork from "./ItemWork";
+import WorkItem from "./WorkItem";
 import {
     getPreviewImageURL,
     getWorkImageURL,
-} from "../../shared/utils/userImageUtils";
+} from "utils/userImageUtils";
 
 import { connect } from "react-redux";
-import { works } from "../../shared/constants/pages";
+import { works } from "constants/pages";
 import {
     setStoreBattle,
     setStoreWorkId,
     setStoreWorksViewing,
     setStoreBattleSwitch,
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 
 function MyWorks(props) {
 
@@ -43,14 +43,11 @@ function MyWorks(props) {
             {dataMyWorks 
                 ? (
                 dataMyWorks.map((param, i) => (
-                    <ItemWork
+                    <WorkItem
                         key={`MyWork_${i}`}
                         // name={storeAuth?.user?.name}
-                        avatar={param?.author?.avatar}
+                        param={param}
                         images={getPreviewImageURL(param.versions[0].authorMockupURL)}
-                        versions={param.versions.length}
-                        likes={param.userLike[0]?.count}
-                        score={param.grade}
                         chooseWork={() => {
                             setStoreWorksViewing(
                                 dataMyWorks.filter(

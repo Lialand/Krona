@@ -8,17 +8,17 @@ import { connect } from "react-redux";
 import ItemBattle from "./ItemBattle";
 import ReactHelmet from "../SEO/ReactHelmet";
 
-import getGridColumns from "../../shared/utils/getGridColumns";
-import checkBattleStage from "../../shared/utils/checkBattleStage";
-import formatDate from "../../shared/utils/formatDateUtils";
-import declentionWord from "../../shared/utils/declensionWordUtil";
+import getGridColumns from "utils/getGridColumns";
+import checkBattleStage from "utils/checkBattleStage";
+import formatDate from "utils/formatDateUtils";
+import declentionWord from "utils/declensionWordUtil";
 import {
     setStoreBattle,
     setStoreScrollWorksValue,
     setStoreScrollResultsValue,
     setStoreFilteredWorks,
-} from "../../redux/actions/Actions";
-import { getBattles, getResults } from "../../redux/actions/AjaxActions";
+} from "reduxFolder/actions/Actions";
+import { getBattles, getResults } from "reduxFolder/actions/AjaxActions";
 
 import "./Battles.scss";
 

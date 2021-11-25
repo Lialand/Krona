@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 import AuthModal from "../Auth/AuthModal";
 import UploadWizard from "../Upload/UploadWizard";
 
-import { works, battles } from "../../shared/constants/pages";
+import { works, battles } from "constants/pages";
 import { connect } from "react-redux";
-import { setStoreWorkChanged } from "./../../redux/actions/Actions";
+import { setStoreWorkChanged } from "reduxFolder/actions/Actions";
 
 function ToggleModal(props) {
     const {

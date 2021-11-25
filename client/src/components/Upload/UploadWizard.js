@@ -15,7 +15,7 @@ import UploadModal from "./UploadModal/UploadModal";
 
 import "./UploadWizard.scss";
 
-import setCloseOnEsc from "../../shared/utils/setCloseOnEsc";
+import setCloseOnEsc from "utils/setCloseOnEsc";
 
 function UploadWizard(props) {
 
@@ -37,7 +37,7 @@ function UploadWizard(props) {
         setChsdActive({refreshWork: true});
     }, [props.isOpen]);
 
-    //Блок кода блокирует скролл, если модальное окно открыто и устанавливает "закрыть" на esc,
+    //Блок кода блокирует скролл, если модальное окно открыто, устанавливает "закрыть" на esc
     //и устанавливает первую страницу визарда
     useEffect(() => {
 

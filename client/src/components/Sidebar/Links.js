@@ -1,7 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-import { works, battles, battleWithParamURL } from "../../shared/constants/pages";
+import { 
+    works, 
+    battles, 
+    battleWithParamURL,
+    moderate
+} from "constants/pages";
 
 export default function Links(props) {
 
@@ -10,7 +15,8 @@ export default function Links(props) {
         clickCurrentBattle,
         battlesCount,
         closeSidebar,
-        battleId
+        battleId,
+        storeAuth
     } = props;
 
     const { pathname } = useLocation();
@@ -45,6 +51,15 @@ export default function Links(props) {
             </li>
             <li className="listItem">
                 <a className="listItemLink" href="https://t.me/joinchat/t5hd58JpfpM5ODcy">Telegram-канал баттлов</a>
+            </li>
+            <li className="listItem">
+            {storeAuth.isLogged && !!storeAuth.data?.user?.roles?.moderator?.length
+                &&
+                <Link 
+                    to={moderate} 
+                    className="listItemLink"
+                >Модерация работ</Link>
+            }
             </li>
         </ul>
     )

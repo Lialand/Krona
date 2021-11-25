@@ -6,12 +6,12 @@ import Profile from "./Profile/Profile";
 import Footer from "./Footer/Footer";
 import Links from "./Links";
 
-import { battles } from "../../shared/constants/pages";
+import { battles } from "constants/pages";
 import { 
     setStoreBattle, 
     setStoreBattleSwitch
-} from "../../redux/actions/Actions";
-import { getMyWorks } from "../../redux/actions/AjaxActions";
+} from "reduxFolder/actions/Actions";
+import { getMyWorks } from "reduxFolder/actions/AjaxActions";
 
 import "./Sidebar.scss";
 
@@ -25,7 +25,7 @@ function Sidebar(props) {
         closeSidebar,
         storeBattle,
         setStoreBattleSwitch,
-        getMyWorks
+        storeAuth
     } = props;
 
     return (
@@ -44,7 +44,6 @@ function Sidebar(props) {
                     isLogged={props.isLogged}
                     logout={props.logout}
                     storeBattle={storeBattle}
-                    refreshMyWorks={getMyWorks}
                 />
                 <div className="boxLink">
                     <a className="linkSite linkSiteActive">Баттлы</a>
@@ -60,6 +59,7 @@ function Sidebar(props) {
                     battlesCount={battlesCount}
                     closeSidebar={closeSidebar}
                     battleId={storeBattle.id}
+                    storeAuth={storeAuth}
                 />
             </div>
             <Footer 
@@ -77,6 +77,7 @@ function Sidebar(props) {
 
 const mapStateToProps = (state) => ({
     storeBattle: state.reducer.storeBattle,
+    storeAuth: state.reducer.storeAuth,
 
     lastBattleData: state.ajaxReducer.lastBattleData,
 })
@@ -84,8 +85,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setStoreBattle: (battle) => dispatch(setStoreBattle(battle)),
     setStoreBattleSwitch: (boolean) => dispatch(setStoreBattleSwitch(boolean)),
-
-    getMyWorks: (battleId) => dispatch(getMyWorks(battleId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

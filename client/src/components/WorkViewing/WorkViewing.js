@@ -11,17 +11,17 @@ import { connect } from "react-redux";
 import {
     getPreviewImageURL,
     getWorkImageURL,
-} from "../../shared/utils/userImageUtils";
-import getWinner from "../../shared/utils/getWinner";
-import findWorkWithId from "../../shared/utils/findWorkWithIdUtils";
-import { work_viewing } from "../../shared/constants/pages"
+} from "utils/userImageUtils";
+import getWinner from "utils/getWinner";
+import findWorkWithId from "utils/findWorkWithIdUtils";
+import { work_viewing } from "constants/pages"
 
 import WorkViewingItem from './WorkViewingItem';
 import WorkNotFoundError from "../Errors/WorkNotFoundError";
 import { 
     setStoreWorksViewing,
     setStoreWorkId
-} from '../../redux/actions/Actions';
+} from 'reduxFolder/actions/Actions';
 
 import "./WorkViewing.scss";
 

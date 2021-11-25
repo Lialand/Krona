@@ -1,4 +1,4 @@
-@import "../../shared/mixins/mixins.scss"; 
+@import "mixins"; 
 
 .activate {
     @include w-h(100%, 100vh);

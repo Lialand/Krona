@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 
 import Notice from "../../Auth/Notice/Notice";
 import MessageModal from "../MessageModal/MessageModal";
-import { activate, restore } from "../../../shared/constants/pages";
-import { activateAccountURL } from "../../../shared/constants/URLs";
-import { getActivation } from "../../../redux/actions/AjaxActions";
+import { activate, restore } from "constants/pages";
+import { activateAccountURL } from "constants/URLs";
+import { getActivation } from "reduxFolder/actions/AjaxActions";
 
 import "./RestoreAccount.scss";
 

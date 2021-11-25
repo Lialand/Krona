@@ -1,0 +1,12 @@
+@import "mixins";
+
+.moderate {
+    .requestBtn {
+        padding: 10px;
+        background-color: white;
+        font: 500 14px InterMedium;
+        cursor: pointer;
+        border: none;
+        margin: 18px;
+    }
+}

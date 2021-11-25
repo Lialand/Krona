@@ -5,8 +5,8 @@ import { useLocation, Link } from "react-router-dom";
 import AuthModal from "../../Auth/AuthModal";
 import Notice from "../../Auth/Notice/Notice";
 import MessageModal from "../MessageModal/MessageModal";
-import { battles } from "../../../shared/constants/pages";
-import { restorePasswordURL } from "../../../shared/constants/URLs";
+import { battles } from "constants/pages";
+import { restorePasswordURL } from "constants/URLs";
 
 import "./RestorePassword.scss";
 

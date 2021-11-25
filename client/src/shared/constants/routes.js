@@ -1,22 +1,33 @@
 import React from "react";
 
-import Battles from "../../components/Battles/Battles";
-import WorkViewing from "../../components/WorkViewing/WorkViewing";
-import Mission from "../../components/Mission/Mission";
-import Winners from "../../components/Winners/Winners";
-import Results from "../../components/Results/Results";
-import Materials from "../../components/Materials/Materials";
-import MyWorks from "../../components/Works/MyWorks";
+import Battles from "components/Battles/Battles";
+import WorkViewing from "components/WorkViewing/WorkViewing";
+import Mission from "components/Mission/Mission";
+import Winners from "components/Winners/Winners";
+import Results from "components/Results/Results";
+import Materials from "components/Materials/Materials";
+import MyWorks from "components/Works/MyWorks";
+
+import Main from "components/Main/Main";
+import Moderate from "components/Moderate/Moderate";
+import Activate from "components/Activate/Activate";
+import RestoreAccount from "components/Restore/RestoreAccount/RestoreAccount";
+import RestorePassword from "components/Restore/RestorePassword/RestorePassword";
 
 import { 
     mission, 
-    battles, 
     winners,
     results, 
     myworks, 
     work_viewing, 
     materials,
-    battleWithParamURL
+    battleWithParamURL,
+    
+    activate, 
+    battles, 
+    restore, 
+    restore_psw,
+    moderate
 } from  "./pages";
 
 export const routes = [
@@ -53,3 +64,30 @@ export const routes = [
         children: () => <h4>Not found</h4>
     },
 ];
+
+export const topRoutes = [
+    {
+        path: battles,
+        children: () => <Main />
+    },
+    {
+        exact: true,
+        path: moderate,
+        children: () => <Moderate />
+    },
+    {
+        exact: true,
+        path: activate,
+        children: () => <Activate />
+    },
+    {
+        exact: true,
+        path: restore,
+        children: () => <RestoreAccount />
+    },
+    {
+        exact: true,
+        path: restore_psw,
+        children: () => <RestorePassword />
+    },
+]

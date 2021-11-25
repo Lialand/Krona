@@ -13,17 +13,17 @@ import {
     works,
     works_stage2,
     battleWithParamURL
-} from "../../shared/constants/pages";
-import { routes } from "../../shared/constants/routes";
+} from "constants/pages";
+import { routes } from "constants/routes";
 
 import { 
     getWorks, 
     getMyWorks,
     getResults 
-} from "../../redux/actions/AjaxActions";
+} from "reduxFolder/actions/AjaxActions";
 import {
     setStoreBattle, setStoreFilteredWorks,
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 
 function Routes(props) {
 

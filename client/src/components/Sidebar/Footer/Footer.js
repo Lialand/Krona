@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom";
 
-import { battleWithParamURL, works } from "../../../shared/constants/pages";
+import { battleWithParamURL, works } from "constants/pages";
 
 import "./Footer.scss";
 

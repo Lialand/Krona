@@ -6,8 +6,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { works, battleWithParamURL } from "../../shared/constants/pages";
-import { setStoreBattleSwitch } from "../../redux/actions/Actions"
+import { works, battleWithParamURL } from "constants/pages";
+import { setStoreBattleSwitch } from "reduxFolder/actions/Actions"
 
 import ItemBattleLow from "../Battles/ItemBattleLow";
 

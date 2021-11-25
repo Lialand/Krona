@@ -5,11 +5,20 @@ const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: ['../src/index.js', '../src/resourses.js'],
-    output:{
+    output: {
         path: path.resolve(__dirname, '../build/'),
         publicPath: '/',
         filename: "bundle.js"       
     }, 
+    resolve: {
+        alias: {
+            utils: path.resolve(__dirname, "../src/shared/utils/"),
+            constants: path.resolve(__dirname, "../src/shared/constants/"),
+            mixins: path.resolve(__dirname, "../src/shared/mixins/mixins.scss"),
+            reduxFolder: path.resolve(__dirname, "../src/redux/"),
+            components: path.resolve(__dirname, "../src/components/")
+        },
+    },
     module:{
         rules:[   
             {

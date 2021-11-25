@@ -1,73 +1,42 @@
 @import "mixins";
 
-.thumbnailWorkViewing {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    .avatarLink {
-        @include w-h(32px, 32px);
-        margin-right: 8px;
-    }
-    .username {
-        align-self: center;
-        color: inherit;
-        font: 400 12px InterRegular;
-        max-width: 180px;
-        overflow: hidden;
-        padding-right: 16px;
-    }
-    .thumbnailAvatar {
-        border-radius: 50%;
-        background-color: #565656;
-        @include w-h(32px, 32px);
-        cursor: pointer;
-    }
-    .placeInBattle {
-        display: flex;
-        align-items: center;
-        .placeCount {
-            border-radius: 50%;
-            color: #C4C4C4;
-            @include w-h(50px, 50px);
-            background: rgba(35, 35, 35, 0.7);
-            margin-right: 10px;
-        }
+.workItemFooter {
+    @include dis-dir(flex, row);
+    margin-top: 10px;
+    > a {
+        max-height: 32px;
+        max-width: 32px;
     }
     .stat {
         display: flex;
-        align-self: center;
-        border-left: 1px solid #2C2C2C;
-        padding: 0 16px;
-        align-items: center;
-        height: 100%;
-        .blockMedal {
-            margin-right: 10px;
-            .medal {
-                @include w-h(13px, 13px);
-                position: absolute;
-            }
-        }
+        align-items: flex-end;
         .prompt {
             position: absolute;
-            bottom: -15px;
+            bottom: -20px;
             padding: 2px 4px;
             font: 500 10px InterRegular;
             color: white;
             background-color: black;
             border-radius: 15px;
-            border: solid 2px #424242;
-            white-space: nowrap;
+            border: solid 2px #2c2c2c;
         }
         p {
             font: 500 10px InterRegular;
             padding-left: 5px;
+            &.release {
+                padding: 0;
+                margin-right: 5px;
+            }
         }
         .statInfo:only-child {
             margin: 0;
         }
+        .place {
+            font: 400 10px InterRegular;
+            align-self: flex-end;
+        }
         .statInfo {
             display: flex;
-            align-items: flex-end;
             .item {
                 @include w-h(12px, 12px);
                 background-position: center;
@@ -75,7 +44,7 @@
             }
         }
         .statInfo:not(:first-child) {
-            margin-left: 15px;
+            margin-left: 10px;
         }
         .statVersions {
             .item {
@@ -86,42 +55,42 @@
             .item {
                 background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.6257 1.41117C11.1232 0.458447 9.67546 -0.32105 7.99146 0.132791C7.18676 0.347495 6.48468 0.807934 5.99992 1.43888C5.51515 0.807934 4.81307 0.347495 4.00837 0.132791C2.32063 -0.314121 0.876664 0.458447 0.37409 1.41117C-0.331014 2.74497 -0.0384709 4.24507 1.24422 5.86989C2.24937 7.14133 3.68583 8.4301 5.77113 9.92674C5.83704 9.97422 5.91822 10 6.00179 10C6.08537 10 6.16655 9.97422 6.23245 9.92674C8.31401 8.43357 9.75422 7.15519 10.7594 5.86989C12.0383 4.24507 12.3308 2.74497 11.6257 1.41117Z' fill='white' fill-opacity='0.5'/%3E%3C/svg%3E");
                 width: 14px;
-                cursor: pointer;
-            }
-        }
-        .statScore {
-            cursor: pointer;
-            .item {
-                background-image: url("data:image/svg+xml,%3Csvg width='14' height='13' viewBox='0 0 14 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.1892 4.51721L9.22203 3.94064L7.44859 0.345331C7.40015 0.246893 7.32046 0.167205 7.22203 0.118768C6.97515 -0.00310701 6.67515 0.0984555 6.55171 0.345331L4.77828 3.94064L0.811089 4.51721C0.701714 4.53283 0.601714 4.58439 0.525151 4.66252C0.432592 4.75765 0.381587 4.88564 0.383345 5.01836C0.385103 5.15109 0.439479 5.27768 0.534526 5.37033L3.40484 8.16877L2.72671 12.1203C2.71081 12.2123 2.72098 12.3068 2.75608 12.3932C2.79117 12.4797 2.84978 12.5545 2.92526 12.6094C3.00074 12.6642 3.09007 12.6968 3.18312 12.7034C3.27617 12.71 3.36922 12.6904 3.45171 12.6469L7.00015 10.7813L10.5486 12.6469C10.6455 12.6985 10.758 12.7156 10.8658 12.6969C11.1377 12.65 11.3205 12.3922 11.2736 12.1203L10.5955 8.16877L13.4658 5.37033C13.5439 5.29377 13.5955 5.19377 13.6111 5.08439C13.6533 4.81096 13.4627 4.55783 13.1892 4.51721Z' fill='white' fill-opacity='0.5'/%3E%3C/svg%3E");
                 // cursor: pointer;
             }
         }
-    }
-}
-
-@media (max-width: 780px) {
-    .thumbnailWorkViewing {
-        width: auto;
-        padding: 16px;
-        .stat {
-            margin-left: 0;
-            padding: 0;
-            border: none;
-            align-self: flex-start;
-            height: auto;
-            .blockMedal {
-                margin-left: 10px;
-                padding-right: 0;
+        .statScore {
+            .item {
+                background-image: url("data:image/svg+xml,%3Csvg width='14' height='13' viewBox='0 0 14 13' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M13.1892 4.51721L9.22203 3.94064L7.44859 0.345331C7.40015 0.246893 7.32046 0.167205 7.22203 0.118768C6.97515 -0.00310701 6.67515 0.0984555 6.55171 0.345331L4.77828 3.94064L0.811089 4.51721C0.701714 4.53283 0.601714 4.58439 0.525151 4.66252C0.432592 4.75765 0.381587 4.88564 0.383345 5.01836C0.385103 5.15109 0.439479 5.27768 0.534526 5.37033L3.40484 8.16877L2.72671 12.1203C2.71081 12.2123 2.72098 12.3068 2.75608 12.3932C2.79117 12.4797 2.84978 12.5545 2.92526 12.6094C3.00074 12.6642 3.09007 12.6968 3.18312 12.7034C3.27617 12.71 3.36922 12.6904 3.45171 12.6469L7.00015 10.7813L10.5486 12.6469C10.6455 12.6985 10.758 12.7156 10.8658 12.6969C11.1377 12.65 11.3205 12.3922 11.2736 12.1203L10.5955 8.16877L13.4658 5.37033C13.5439 5.29377 13.5955 5.19377 13.6111 5.08439C13.6533 4.81096 13.4627 4.55783 13.1892 4.51721Z' fill='white' fill-opacity='0.5'/%3E%3C/svg%3E");
             }
         }
-        .username {
-            align-self: flex-start;
+        .blockMedal {
+            margin-left: 15px;
+            .medal {
+                @include w-h(14px, 14px);
+                position: absolute;
+            }
         }
-        .scores {
-            display: none;
-        }
-        .adaptiveShow {
-            display: flex!important;
-        }
+    }
+    .thumbnail {
+        border-radius: 50%;
+        background: #565656;
+        @include w-h(100%, 100%);
+        cursor: pointer;
+    }
+    .flexcolumn {
+        height: 32px;
+        justify-content: space-between;
+        overflow: hidden;
+    }
+    .username {
+        font: 500 12px InterRegular;
+        color: white;
+    }
+    .footerRelease {
+        flex-direction: row;
+        height: 20px;
+    }
+    .footerInfo {
+        margin-left: 8px;
     }
 }

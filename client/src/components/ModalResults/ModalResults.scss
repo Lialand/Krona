@@ -1,4 +1,4 @@
-@import "../../shared/mixins/mixins.scss";
+@import "mixins";
 
 .modalWrapper {
     @include dis-dir(flex, column);

@@ -1,4 +1,4 @@
-@import "../../shared/mixins/mixins.scss";
+@import "mixins";
 
 .emptyHeader {
     @include w-h(100%, 118px);

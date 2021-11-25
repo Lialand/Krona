@@ -19,3 +19,4 @@ export const registerURL = `${HOST}/api/auth/register`;
 export const restoreAccountURL = `${HOST}/api/auth/restore`;
 export const restorePasswordURL = `${HOST}/api/auth/restore_psw`;
 export const uploadURL = `${HOST}/api/user/work/upload`;
+export const moderateURL = `${HOST}/api/user/work/moderate`;

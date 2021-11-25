@@ -17,11 +17,11 @@ import {
     materials,
     winners,
     battleWithParamURL
-} from "../../shared/constants/pages";
+} from "constants/pages";
 import { 
     setStoreScrollWorksValue,  
     setStoreScrollResultsValue 
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 import { connect } from "react-redux";
 import FilterWorks from "./Filters/FilterWorks";
 

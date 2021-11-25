@@ -10,15 +10,15 @@ import {
     setStoreBattle,
     setStoreHideNavigation,
     setStoreHideHeader
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 import { 
     getAuth,
     getBattleDetailed, 
     getBattles, 
     getLastBattle, 
     getLogout
-} from "../../redux/actions/AjaxActions"
-import { battles, work_viewing } from "../../shared/constants/pages";
+} from "reduxFolder/actions/AjaxActions"
+import { battles, work_viewing } from "constants/pages";
 
 import "./Main.scss";
 

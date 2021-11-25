@@ -4,11 +4,11 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from "react-redux";
 import { compose } from "redux";
 
-import { getWorkDetailed } from "../../redux/actions/AjaxActions";
+import { getWorkDetailed } from "reduxFolder/actions/AjaxActions";
 import withReactPortal from "../HOC/withReactPortal";
 
-import getNewResultsArray from "../../shared/utils/getNewResultsArray";
-import setCloseOnEsc from "../../shared/utils/setCloseOnEsc";
+import getNewResultsArray from "utils/getNewResultsArray";
+import setCloseOnEsc from "utils/setCloseOnEsc";
 import ModalResultsItem from "./ModalResultsItem";
 
 import "./ModalResults.scss";

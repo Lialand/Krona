@@ -23,7 +23,7 @@ export default function LabelSymbols(props) {
                         <p className="instruction">
                             Перетащите изображение<br />
                             <small>или кликните, чтобы выбрать файл</small></p>
-                        <p className="opacity">(JPG, PNG, до 10 МБ, от 1600px по ширине)</p>
+                        <p className="opacity">(JPG, PNG, до 10 МБ, от 900px по ширине)</p>
                     </div>
                 </div>
             ) : (

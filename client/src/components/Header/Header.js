@@ -8,13 +8,13 @@ import { useMediaQuery } from "react-responsive";
 import { useLocation } from "react-router";
 
 import BattleInfo from "./BattleInfo";
-import checkBattleStage from "../../shared/utils/checkBattleStage";
-import formatDateUtils from "../../shared/utils/formatDateUtils";
+import checkBattleStage from "utils/checkBattleStage";
+import formatDateUtils from "utils/formatDateUtils";
 import HeaderTop from "./HeaderTop";
 import HeaderBottom from "./HeaderBottom";
 
-import { setStoreBattle } from "../../redux/actions/Actions";
-import findBattleWithId from "../../shared/utils/findBattleWithId";
+import { setStoreBattle } from "reduxFolder/actions/Actions";
+import findBattleWithId from "utils/findBattleWithId";
 
 import "./Header.scss";
 

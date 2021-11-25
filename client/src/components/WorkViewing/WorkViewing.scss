@@ -1,4 +1,4 @@
-@import "../../shared/mixins/mixins.scss";
+@import "mixins";
 
 .workViewing {
     @include dis-dir(flex, column);

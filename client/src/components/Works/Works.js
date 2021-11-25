@@ -6,19 +6,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Redirect, useParams } from "react-router";
 
-import { getPreviewImageURL } from "../../shared/utils/userImageUtils";
-import getGridColumns from "../../shared/utils/getGridColumns";
-import getWinner from "../../shared/utils/getWinner";
-import { battleWithParamURL, mission } from "../../shared/constants/pages";
+import { getPreviewImageURL } from "utils/userImageUtils";
+import getGridColumns from "utils/getGridColumns";
+import getWinner from "utils/getWinner";
+import { battleWithParamURL, mission } from "constants/pages";
 import {
     setStoreBattle,
     setStoreWorkId,
     setStoreWorksViewing,
     setStoreScrollWorksValue,
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 
 import "./Works.scss";
-import ItemWork from "./ItemWork";
+import WorkItem from "./WorkItem";
 import ReactHelmet from "../SEO/ReactHelmet"
 
 function Works(props) {
@@ -109,18 +109,12 @@ function Works(props) {
             works.map(
                 param =>
                     param.versions[0] && (
-                        <ItemWork
-                            key={`Work_${param.id}`}
-                            workId={param.id}
-                            images={getPreviewImageURL(
+                        <WorkItem
+                            key={param.id}
+                            param={param}
+                            image={getPreviewImageURL(
                                 param.versions[0].authorMockupURL
                             )}
-                            avatar={"/"+param?.author?.avatar}
-                            name={param.author?.name}
-                            site={param.author?.site}
-                            score={param.grade}
-                            likes={param.userLike[0]?.count}
-                            versions={param.versions.length}
                             isBest={getWinner(resultsData.prizes, param.id).isWinner}
                             place={getWinner(resultsData.prizes, param.id)?.prizeName()}
                             placeImage={"/"+getWinner(resultsData.prizes, param.id)?.prizeImage()}

@@ -9,7 +9,7 @@ import "./Profile.scss";
 const openUpload = (battle, openModal) => {
 
     if (!battle.name) 
-        alert("Не выбран баттл для загрузки");
+        alert("Откройте баттл, в который хотите загрузить работу, затем нажмите на кнопку загрузки работы");
     else if (battle.battleStageId !== 2 && battle.battleStageId !== 4)
         alert(`Нельзя загрузить работу на этот баттл. Выбран: ${battle.name}`);
     else 
@@ -21,8 +21,7 @@ export default function Profile(props) {
     const {
         isLogged,
         logout,
-        storeBattle,
-        refreshMyWorks
+        storeBattle
     } = props;
 
     const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
@@ -48,13 +47,13 @@ export default function Profile(props) {
             (isLogged
                 ?
                 <>
-                <button className="enterSite" onClick={logout}>
-                    <img src="/assets/images/logout.svg" className="logImage" alt="logoutImage" />
-                    Выход
-                </button>
-                <button className="enterSite" onClick={() => openUpload(storeBattle, () => setIsOpenUploadModal(true))}>
-                    Открыть визард
-                </button>
+                    <button className="enterSite" onClick={logout}>
+                        <img src="/assets/images/logout.svg" className="logImage" alt="logoutImage" />
+                        Выход
+                    </button>
+                    <button className="enterSite" onClick={() => openUpload(storeBattle, () => setIsOpenUploadModal(true))}>
+                        Загрузить работу
+                    </button>
                 </>
                 :
                 <button className="enterSite" onClick={() => setIsOpenAuthModal(true)}>
@@ -72,16 +71,16 @@ export default function Profile(props) {
             <UploadWizard 
                 close={() => setIsOpenUploadModal(false)}
                 outSideClose={e => closeModal(e)}
-                successUploaded = {() => {setIsOpenUploadModal(false); setIsOpenSuccessModal(true)}}
+                successUploaded = {() => {
+                    setIsOpenUploadModal(false); 
+                    setIsOpenSuccessModal(true)
+                }}
             />
             }
             {isOpenSuccessModal &&
-                <SuccessUpload
-                    OK={() => {
-                        refreshMyWorks(storeBattle.id);
-                        setIsOpenSuccessModal(false);
-                    }}
-                />
+            <SuccessUpload
+                OK={() => setIsOpenSuccessModal(false)}
+            />
             }
         </div> 
     )

@@ -7,8 +7,8 @@ import React, { useState, useEffect } from 'react';
 import AuthForm from './AuthForm';
 import AuthHeader from './AuthHeader';
 import withReactPortal from '../HOC/withReactPortal';
-import { activate, restore_psw } from '../../shared/constants/pages';
-import setCloseOnEsc from "../../shared/utils/setCloseOnEsc";
+import { activate, restore_psw } from 'constants/pages';
+import setCloseOnEsc from "utils/setCloseOnEsc";
 
 import "./Auth.scss";
 

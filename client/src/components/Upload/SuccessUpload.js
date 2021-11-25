@@ -9,7 +9,7 @@ function SuccessUpload(props) {
     return (
         <section className="wizardWrapper">
             <div className="successModal">
-                Работа успешно отправлена!
+                Работа отправлена. Она будет видна на сайте после прохождения модерации.
                 <button
                     onClick={OK}
                 >

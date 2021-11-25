@@ -12,7 +12,7 @@ import {
     checkImage,
     prevCheck,
     sendForm  
-} from "../../../shared/utils/uploadUtils";
+} from "utils/uploadUtils";
 
 import "./UploadModal.scss";
 
@@ -28,7 +28,6 @@ export default function UploadModal(props) {
     const [fileDataDnD, setFileDataDnD] = useState(null); //данные файла для загрузки Drag&Drop
     const [previewImage, setPreviewImage] = useState(null); //url для загрузки превью изображения
     const [startUploading, setStartUploading] = useState(false); //началась ли загрузка файла на сервер
-    const [tooWide, setTooWide] = useState(false); //слишком ли широкое изображение (для превью)
     const [sendConfirm, setSendConfirm] = useState(false); //нажата ли кнопка для подтверждения отправки работы
     const [valueTextArea, setValueTextArea] = useState(""); //хранит текст, написанный в поле для комментария
     const [redact, setRedact] = useState(false); //включает режим редактирования (есть картинка -> грузим другую)
@@ -63,7 +62,6 @@ export default function UploadModal(props) {
         setError
     };
     const readImageArgs = {
-        setTooWide,
         setError,
         setFileChoosed,
         setPreviewImage
@@ -160,11 +158,9 @@ export default function UploadModal(props) {
                     htmlFor="inputFile"
                     style={{
                         border: fileChoosed ? "" : !error.isError ? "dashed 3px rgba(1, 1, 1, 0.2)" : "dashed 3px #06B667",
-                        cursor: (!fileChoosed && !error.isError) ? "pointer" : "",
-                        backgroundSize: !tooWide ? "cover" : "contain",
-                        backgroundImage: previewImage,
-                        backgroundColor: !fileChoosed ? "" : !tooWide ? "rgba(255, 255, 255, 0.5)" : "rgba(230, 248, 240, 1)",
-                        backgroundPosition: !tooWide ? "center top" : "center center",
+                        cursor: !fileChoosed ? "pointer" : "",
+                        backgroundSize: "cover",
+                        backgroundImage: previewImage
                     }}
                 >
                     <input
@@ -180,7 +176,7 @@ export default function UploadModal(props) {
                             setRedact(false);
                         }}
                         ref={file}
-                        onClick={(e) => (fileChoosed && !redact || error.isError) ? e.preventDefault() : e}
+                        onClick={(e) => fileChoosed && !redact ? e.preventDefault() : e}
                     />
                     {error.isError &&
                         <ErrorMessage
@@ -209,7 +205,8 @@ export default function UploadModal(props) {
                     {
                         !sendConfirm
                             ?
-                            <textarea name="versionComment"
+                            <textarea 
+                                name="versionComment"
                                 id="inputText" className="inputfield"
                                 value={valueTextArea}
                                 onChange={e => setValueTextArea(e.target.value)}

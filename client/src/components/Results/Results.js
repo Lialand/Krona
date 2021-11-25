@@ -10,16 +10,16 @@ import ReactHelmet from "../SEO/ReactHelmet";
 import {
     getPreviewImageURL,
     getWorkImageURL,
-} from "../../shared/utils/userImageUtils";
-import { work_viewing, works, battleWithParamURL } from "../../shared/constants/pages";
-import getWinner from "../../shared/utils/getWinner";
-import { getResults } from "../../redux/actions/AjaxActions";
+} from "utils/userImageUtils";
+import { work_viewing, works, battleWithParamURL } from "constants/pages";
+import getWinner from "utils/getWinner";
+import { getResults } from "reduxFolder/actions/AjaxActions";
 
 import {
     setStoreWorkId,
     setStoreWorksViewing,
     setStoreScrollResultsValue,
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 
 import "./Results.scss";
 

@@ -5,17 +5,17 @@ import { Redirect, useParams } from "react-router";
 import {
     getPreviewImageURL,
     getWorkImageURL,
-} from "../../shared/utils/userImageUtils";
-import getGridColumns from "../../shared/utils/getGridColumns"
+} from "utils/userImageUtils";
+import getGridColumns from "utils/getGridColumns"
 
-import ItemWork from "../Works/ItemWork";
+import WorkItem from "../Works/WorkItem";
 import {
     setStoreWorksViewing,
     setStoreWorkId,
-} from "../../redux/actions/Actions";
-import { getResults } from "../../redux/actions/AjaxActions";
-import { works, battleWithParamURL } from "../../shared/constants/pages";
-import getWinner from "../../shared/utils/getWinner";
+} from "reduxFolder/actions/Actions";
+import { getResults } from "reduxFolder/actions/AjaxActions";
+import { works, battleWithParamURL } from "constants/pages";
+import getWinner from "utils/getWinner";
 
 import "./Winners.scss";
 
@@ -85,14 +85,10 @@ function Winners(props) {
                     <div key={param.id} className="winnersWork">
                         <p className="winnerPlace">{`${param?.prizeWork[0]?.battlePrize?.prize?.name} 
                             / ${param?.prizeWork[0]?.battlePrize?.name}`}</p>
-                        <ItemWork
+                        <WorkItem
+                            param={param}
                             images={getPreviewImageURL(param?.versions[0]?.authorMockupURL)}
-                            name={param.author?.name}
-                            site={param.author?.site}
-                            score={param.grade}
-                            workId={param.id}
                             isBest={true}
-                            avatar={"/"+param?.author?.avatar}
                             place={getWinner(resultsData.prizes, param.id)?.prizeName()}
                             placeImage={"/"+getWinner(resultsData.prizes, param.id)?.prizeImage()}
                             chooseWork={() => {

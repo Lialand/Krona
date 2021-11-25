@@ -6,52 +6,49 @@
 
 import React, { useState } from "react";
 
+import "./WorkItemFooter.scss";
+
 export default function WorkItemFooter(props) {
 
     const { 
+        param,
         chsdWork,
-        avatar,
-        name,
-        versions,
         setLike,
         workForLike,
         myLikes,
-        likes,
-        score,
         isBest,
         placeImage,
-        place,
-        site
+        place
      } = props;
 
     const [prompt, setPrompt] = useState({});
 
     return (
-        <footer>
-            <a href={site} target="_blank">
+        <footer className="workItemFooter">
+            <a href={param?.author?.site} target="_blank">
                 <img
-                    src={avatar}
+                    src={"/"+param?.author?.avatar}
                     className={chsdWork ? "thumbnail active" : "thumbnail"}
                 />
             </a>
             <div className="footerInfo flexcolumn">
-                <a target="_blank" href={site} className="username">{name}</a>
+                <a target="_blank" href={param?.author?.site} className="username">{param?.author?.name}</a>
                 <div className="stat">
-                    {versions &&
+                    {param?.versions?.length &&
                     <div onMouseOver={() => setPrompt({versions: true})} onMouseOut={() => setPrompt(false)} className="statInfo statVersions">
                         <div className="item" />
-                        <p>{versions}</p>
+                        <p>{param?.versions?.length}</p>
                         {prompt?.versions && <div className="prompt versions">Число версий</div>}
                     </div>}
-                    {(likes || myLikes) &&
+                    {(param?.likes || myLikes) &&
                     <div className="statInfo statLikes">
                         <div onClick={setLike} className="item" />
-                        <p>{workForLike ? myLikes : likes}</p>
+                        <p>{workForLike ? myLikes : param?.likes}</p>
                     </div>}
-                    {score !== 0 && score &&
+                    {param?.grade !== 0 && param?.grade &&
                     <div onMouseOver={() => setPrompt({score: true})} onMouseOut={() => setPrompt(false)} className="statInfo statScore">
                         <div className="item" />
-                        <p>{score}</p>
+                        <p>{param?.grade}</p>
                         {prompt?.score && <div className="prompt score">Итоговая оценка</div>}
                     </div>}
                     {isBest && placeImage !== "/"+null && 

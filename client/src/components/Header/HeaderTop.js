@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { 
     battles,
     works
- } from "../../shared/constants/pages";
+ } from "constants/pages";
 
 function HeaderTop(props) {
 

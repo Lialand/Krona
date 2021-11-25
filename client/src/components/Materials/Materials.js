@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import Fancybox from "../Fancybox/Fancybox";
 
-import getGridColumns from "../../shared/utils/getGridColumns";
+import getGridColumns from "utils/getGridColumns";
 
 import "./Materials.scss";
 import MaterialsItem from "./MaterialsItem";

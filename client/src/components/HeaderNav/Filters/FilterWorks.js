@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import { useMediaQuery } from "react-responsive";
 import { useParams, useLocation } from "react-router-dom";
 
-import { filterWorks } from "../../../shared/utils/filterUtils";
+import { filterWorks } from "utils/filterUtils";
 import { connect } from "react-redux";
 import { 
     winners, 
     works, 
     works_stage2, 
     battleWithParamURL,
-} from "../../../shared/constants/pages";
-import { setStoreFilteredWorks } from "../../../redux/actions/Actions";
+} from "constants/pages";
+import { setStoreFilteredWorks } from "reduxFolder/actions/Actions";
 
 import FilterWorksItemDesktop from "./FilterWorksItemDesktop";
 import FilterWorksItemMobile from "./FilterWorksItemMobile";

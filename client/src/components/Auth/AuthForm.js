@@ -9,9 +9,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { connect } from "react-redux";
 import {
     setStoreAuth,
-} from "../../redux/actions/Actions";
+} from "reduxFolder/actions/Actions";
 
-import { sendForm } from "../../shared/utils/authUtils";
+import { sendForm } from "utils/authUtils";
 
 import AuthInputs from "./AuthInputs/AuthInputs";
 import AuthFormLow from "./AuthFormLow";

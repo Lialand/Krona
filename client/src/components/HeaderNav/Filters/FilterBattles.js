@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { setStoreFilteredBattles } from "../../../redux/actions/Actions";
-import { filterBattles } from "../../../shared/utils/filterUtils";
+import { setStoreFilteredBattles } from "reduxFolder/actions/Actions";
+import { filterBattles } from "utils/filterUtils";
 
 function Filter(props) {
 

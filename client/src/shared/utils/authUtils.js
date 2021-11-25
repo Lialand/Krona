@@ -1,5 +1,8 @@
 import axios from "axios";
 
+import store from "reduxFolder/store/Store";
+import { getAuth } from "reduxFolder/actions/AjaxActions";
+
 import { 
     loginURL, 
     registerURL, 
@@ -22,10 +25,9 @@ export function isEmptyFields(formData) {
     return false;
 }
 
-export function isValidSite(formData) {
+export function isValidSite(site) {
 
-    let site = formData.get("site");
-    let validSites = ["vk.com", "instagram.com"];
+    let validSites = [/^https:\/\/vk.com\/[\w]/, /^https:\/\/instagram.com\/[\w]/];
 
     return !!validSites.filter(item => site.match(item)).length;
 }
@@ -33,6 +35,7 @@ export function isValidSite(formData) {
 export function sendForm(form, props, setNotice) {
 
     let formData = new FormData(form.current);
+
     if (isEmptyFields(formData)) {
         setNotice({
             show: true,
@@ -40,14 +43,7 @@ export function sendForm(form, props, setNotice) {
             text: "Заполните поля"
         });
         return;
-    } else if (formData.get("site") && !isValidSite(formData)) {
-        setNotice({
-            show: true,
-            isError: true,
-            text: "Введён некорректный адрес соцсети"
-        });
-        return;
-    } 
+    }  
 
     if (props.formType === "LOGIN") {
 
@@ -58,7 +54,7 @@ export function sendForm(form, props, setNotice) {
         }).then(
             (res) => {
                 if (res.status === 200) {
-                    props.setStoreAuth({isLogged: true});
+                    store.dispatch(getAuth());
                     if (props.redirectOnMain) {
                         window.location.href = window.location.origin;
                     }
@@ -78,6 +74,26 @@ export function sendForm(form, props, setNotice) {
         );  
 
     } else if (props.formType === "REGISTRATION") {
+
+        let prevSite = formData.get("site");
+        let protocol = "https://";
+
+        if (prevSite.match(/^http:\/\//)) 
+            formData.set("site", prevSite.replace(/^http:\/\//, protocol));
+        else if (!prevSite.match(/^https:\/\//))
+            formData.set("site", protocol + prevSite);
+
+        let site = formData.get("site");
+
+        if (!isValidSite(site)) {
+
+            setNotice({
+                show: true,
+                isError: true,
+                text: "Введён некорректный адрес соцсети. Пример: vk.com/имя_пользователя"
+            });
+            return;
+        }
 
         axios({
             url: registerURL,

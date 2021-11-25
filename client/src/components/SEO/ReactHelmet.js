@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
-import { formatToMonthAndYear } from "../../shared/utils/formatDateUtils";
+import { formatToMonthAndYear } from "utils/formatDateUtils";
 
 const anotherPage = {
     title: "Дизайн-баттл — бесплатный конкурс для веб-дизайнеров", 

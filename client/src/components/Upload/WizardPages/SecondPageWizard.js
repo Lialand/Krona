@@ -5,12 +5,12 @@
 
 import React from "react";
 
-import ItemWork from "../../Works/ItemWork";
+import WorkItem from "../../Works/WorkItem";
 
 import {
     getPreviewImageURL,
     getWorkImageURL,
-} from "../../../shared/utils/userImageUtils";
+} from "utils/userImageUtils";
 
 export default function SecondPageWizard(props) {
  
@@ -28,7 +28,7 @@ export default function SecondPageWizard(props) {
             <div className="worksList">
                 {myWorksData?.length !== 0 &&
                     myWorksData.works.map((param, i) => (
-                        <ItemWork
+                        <WorkItem
                             chooseWork={() => {
                                 setUploadWorkId(param.id);
                                 setChsdWork(i);
@@ -36,17 +36,13 @@ export default function SecondPageWizard(props) {
                             isModal={true}
                             chsdWork={i === chsdWork}
                             key={"workItemWizard_" + i}
-                            images={getPreviewImageURL(
+                            image={getPreviewImageURL(
                                 param.versions[0].authorMockupURL
                             )}
-                            redacts={param.filtered}
-                            likes={param.likes}
-                            score={param.grade}
-                        // avatar={param.author.avatar}
-                        // name={param.author.name}
-                        // isBest={param.isBest}
+                            param={param}
                         />
-                    ))}
+                    ))
+                }
             </div>
             <div className="buttons move">
                 <button onClick={() => setPage(1)}>
