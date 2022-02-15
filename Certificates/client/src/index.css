@@ -1,0 +1,47 @@
+@font-face {
+    font-family: "InterMedium";
+    src: url(assets/fonts/Inter-Medium.ttf); 
+}
+@font-face {
+    font-family: "InterRegular";
+    src: url(assets/fonts/Inter-Regular.ttf); 
+}
+@font-face {
+    font-family: "InterSemiBold";
+    src: url(assets/fonts/Inter-SemiBold.ttf); 
+}
+@font-face {
+    font-family: "Inter";
+    src: url(assets/fonts/Inter.ttf); 
+}
+@font-face {
+    font-family: "SohneItalic";
+    src: url(assets/fonts/sohne-400-italic.woff); 
+}
+@font-face {
+    font-family: "SohneItalicNormal";
+    src: url(assets/fonts/sohne-400-normal.woff); 
+}
+@font-face {
+    font-family: "SohneItalicBold";
+    src: url(assets/fonts/sohne-700-normal.woff); 
+}
+@font-face {
+    font-family: "CharterItalic";
+    src: url(assets/fonts/charter-400-italic.woff); 
+}
+@font-face {
+    font-family: "CharterItalicNormal";
+    src: url(assets/fonts/charter-400-normal.woff); 
+}
+
+* {
+    box-sizing: border-box;
+    font-family: InterRegular;
+}
+
+body {
+    background: #111111;
+    margin: 0;
+    padding: 0;
+}

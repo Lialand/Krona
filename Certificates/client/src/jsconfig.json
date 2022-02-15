@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "baseUrl": "./",
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "jsx": "react",
+        "paths": {
+            "utils/*": ["shared/utils/*"],
+            "assets/*": ["../assets/*"],
+            "const/*": ["shared/const/*"],
+            "types": ["shared/types/types.ts"],
+        }
+    },
+    "exclude": ["../node_modules", "../build"]
+}
