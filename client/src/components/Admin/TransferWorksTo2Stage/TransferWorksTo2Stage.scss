@@ -1,0 +1,22 @@
+@import "mixins";
+
+.transferWorks {
+    .requestBtn {
+        padding: 10px;
+        background-color: black;
+        color: white;
+        font: 500 14px InterMedium;
+        cursor: pointer;
+        border: none;
+        margin: 18px;
+    }
+    .selectStyled {
+        margin-top: 10px;
+        i.icon.delete:before {
+            content: "\2716";
+        }
+        span {
+            color: black;
+        }
+    }
+}

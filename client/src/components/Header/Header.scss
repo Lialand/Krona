@@ -1,7 +1,7 @@
 @import "mixins";
 
 .emptyHeader {
-    @include w-h(100%, 118px);
+    @include w-h(100%, 130px);
     background: black;
     &.battles {
         height: 100px;
@@ -21,12 +21,16 @@
     top: 0;
     border-right: none;
     border-left: none;
+    .sendBtn {
+        display: none;
+    }
     &.battles {
         border: none;
     }
     .headingBattles {
-        font: 600 24px InterSemiBold;
+        font: 600 24px Inter;
         color: white;
+        line-height: 130%;
     }
     .showAdaptive {
         display: none;
@@ -105,20 +109,23 @@
         @include dis-dir(flex, row);
         border-top: 0;
         align-items: center;
-        font: 500 14px InterSemiBold;
+        font: 500 14px Inter;
         color: white;
-        height: 40px;
+        height: 53px;
         padding: 0 16px;
         background-repeat: no-repeat;
         background-size: cover;
         background-color: rgba(0, 0, 0, 0.5);
         background-blend-mode: color;
         width: 100%;
+        line-height: 130%;
         .name {
             font-size: 24px;
+            font-weight: 600;
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+            line-height: 130%;
         }
         .dateStatus {
             flex-shrink: 0;
@@ -190,7 +197,7 @@
 
 @media (max-width: 951px) {
     .emptyHeader {
-        height: 140px;
+        height: 150px;
         &.battles {
             height: 128px;
         }
@@ -219,17 +226,22 @@
             height: 48px;
             .burgerMenu {
                 display: block;
+                line-height: 1;
             }
         }
         .logoImage {
             height: auto;
             display: flex;
         }
+        .sendBtn {
+            display: block;
+            padding: 16px;
+        }
         .logoText {
             margin-left: 4px;
             display: block;
             &.works {
-                margin-left: calc(50% - 50px);
+                margin-left: calc(50% - 25px);
             }
         }
     }

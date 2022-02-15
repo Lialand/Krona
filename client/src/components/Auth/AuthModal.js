@@ -2,50 +2,46 @@
  * Компонент является модальным окном авторизации
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import Modal from "react-modal";
+Modal.setAppElement("#render");
 
-import AuthForm from './AuthForm';
-import AuthHeader from './AuthHeader';
-import withReactPortal from '../HOC/withReactPortal';
-import { activate, restore_psw } from 'constants/pages';
-import setCloseOnEsc from "utils/setCloseOnEsc";
+import AuthForm from "./AuthForm";
+import AuthHeader from "./AuthHeader";
+import { activate, restore_psw } from "constants/pages";
 
 import "./Auth.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 //Родительский компонент: Sidebar.js
 function AuthModal(props) {
 
     const [formType, setFormType] = useState("LOGIN");
 
-    useEffect(() => {
-
-        let y = window.scrollY;
-
-        setCloseOnEsc(props.close);
-        window.onscroll = () => window.scrollTo(0, y);
-
-        return () => window.onscroll = () => {};
-    }, []);
-
     return ( 
-        <section className="bckgrAuthModal" onClick={props.outSideClose}>
-            <div className="authModal">
-                <AuthHeader 
-                    closeModal={props.close}
-                    formType={formType}
-                />
-                <AuthForm    
-                    closeModal={props.close}
-                    formType={formType}
-                    setFormRestorePassword={() => setFormType("RESTORE_PASSWORD")}
-                    setFormRestoreAccount={() => setFormType("RESTORE_ACCOUNT")}
-                    setFormRegistration={() => setFormType("REGISTRATION")}
-                    setFormLogin={() => setFormType("LOGIN")}
-                    redirectOnMain={location.pathname === activate || location.pathname === restore_psw}
-                />
-            </div>
-        </section>
+        <Modal 
+            isOpen={props.show}
+            onRequestClose={props.close}
+            className="authModal"
+            overlayClassName="bckgrAuthModal"
+        >
+            <AuthHeader 
+                closeModal={props.close}
+                formType={formType}
+            />
+            <AuthForm    
+                setNotice={props.setNotice}
+                notice={props.notice}
+                closeModal={props.close}
+                formType={formType}
+                setFormRestorePassword={() => setFormType("RESTORE_PASSWORD")}
+                setFormRestoreAccount={() => setFormType("RESTORE_ACCOUNT")}
+                setFormRegistration={() => setFormType("REGISTRATION")}
+                setFormLogin={() => setFormType("LOGIN")}
+                redirectOnMain={location.pathname === activate || location.pathname === restore_psw}
+            />
+        </Modal>
     )
 }
 
-export default withReactPortal(AuthModal);
+export default AuthModal;

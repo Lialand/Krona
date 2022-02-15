@@ -32,7 +32,7 @@ export default function WorkItemFooter(props) {
                 />
             </a>
             <div className="footerInfo flexcolumn">
-                <a target="_blank" href={param?.author?.site} className="username">{param?.author?.name}</a>
+                <a target="_blank" href={param?.author?.site} className="username">{param?.author?.name || param?.author?.login}</a>
                 <div className="stat">
                     {param?.versions?.length &&
                     <div onMouseOver={() => setPrompt({versions: true})} onMouseOut={() => setPrompt(false)} className="statInfo statVersions">

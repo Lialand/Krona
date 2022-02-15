@@ -6,39 +6,53 @@
  */
 
 import React, { useState, useRef, useEffect } from "react";
-import { connect } from "react-redux";
-import {
-    setStoreAuth,
-} from "reduxFolder/actions/Actions";
 
 import { sendForm } from "utils/authUtils";
+import { loginValid } from "constants/validValues";
 
 import AuthInputs from "./AuthInputs/AuthInputs";
 import AuthFormLow from "./AuthFormLow";
 import ConfirmEnter from "./ConfirmEnter";
 import Notice from "./Notice/Notice";
 
-function AuthForm(props) {
+function blockInput(e, formType, setHint) {
+
+    if (formType === "REGISTRATION") {
+        if (/\s/.test(e.key) || e.target.name === "login" && !loginValid.test(e.key)) {
+            e.preventDefault();
+            setHint(e.target.name);
+        } else {
+            setHint("");
+        }
+    }
+}
+
+export default function AuthForm(props) {
 
     const [isActivePassView, setIsActivePassView] = useState(false);
-    const [notice, setNotice] = useState({
-        isError: false,
-        type: "",
-        show: false,
-        text: ""
-    });
+    const [agreement, setAgreement] = useState(true);
+    const [hint, setHint] = useState("");
 
     const form = useRef(null);
 
-    function enterBtn(e) {
+    const {
+        notice,
+        setNotice
+    } = props;
+
+    function handleOnKeyDown(e) {
+
         if (e.keyCode === 13) {
             e.preventDefault();
-            sendForm(form, props, setNotice);
+            sendForm(form, props, setHint);
+        } else {
+            blockInput(e, props.formType, setHint);
         }
     }
 
     useEffect(() => {
 
+        setAgreement(true);
         form.current.reset();
         setNotice({
             isError: false,
@@ -57,12 +71,13 @@ function AuthForm(props) {
             <AuthInputs 
                 setIsActivePassView={() => setIsActivePassView(state => !state)}
                 isActivePassView={isActivePassView}
-                enterBtn={(e) => enterBtn(e)}
+                handleOnKeyDown={(e) => handleOnKeyDown(e)}
                 formType={props.formType}
                 error={notice}
+                hint={hint}
             />
             <div className="flexcolumn">
-                {notice.show && 
+                {notice?.show && 
                     <Notice 
                         text={notice.text} 
                         isError={notice.isError} 
@@ -75,14 +90,15 @@ function AuthForm(props) {
                 </div> */}
                 <ConfirmEnter 
                     formType={props.formType}
-                    sendForm={() => sendForm(form, props, setNotice)}
+                    sendForm={() => agreement || props.formType !== "REGISTRATION" ? sendForm(form, props, setHint) : {}}
+                    agreement={agreement}
+                    setAgreement={e => setAgreement(e.target.checked)}
                 />
             </div>
             {!props.redirectOnMain &&
             <AuthFormLow 
                 formType={props.formType}
                 setFormRestorePassword={props.setFormRestorePassword}
-                setFormRestoreAccount={props.setFormRestoreAccount}
                 setFormRegistration={props.setFormRegistration}
                 setFormLogin={props.setFormLogin}
             />
@@ -90,9 +106,3 @@ function AuthForm(props) {
         </form>
     );
 }
-
-const mapDispatchToProps = (dispatch) => ({
-    setStoreAuth: (auth) => dispatch(setStoreAuth(auth)),
-});
-
-export default connect(null, mapDispatchToProps)(AuthForm);

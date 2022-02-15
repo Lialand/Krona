@@ -1,0 +1,56 @@
+@import "mixins";
+
+.infoModal {
+    margin: auto;
+    text-align: center;
+    @include dis-dir(flex, column);
+    @include fonter(Inter, 39px, 600, #000);
+    background: rgb(255, 255, 255);
+    padding: 50px;
+    max-width: 900px;
+    font-style: normal;
+    line-height: 90%;
+    letter-spacing: -0.05em;
+    align-items: flex-start;
+    text-align: left;
+    border: none!important;
+    border-radius: 0!important;
+    overflow: auto;
+    &.error {
+        .buttonModal {
+            background-color: orange;
+        }
+    }
+    .buttonModal {
+        display: block;
+        font: 600 16px Inter;
+        cursor: pointer;
+        border-radius: 0;
+        margin-top: 40px;
+        text-transform: uppercase;
+        padding: 19px 30px;
+        text-align: left;
+        color: white;
+        background-color: #111111;
+        border: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .infoModal {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .infoModal {
+        font-size: 20px;
+        padding: 30px 20px;
+        button {
+            font: 600 12px Inter;
+            margin-top: 20px;
+            padding: 13px 30px;
+        }
+    }
+
+}

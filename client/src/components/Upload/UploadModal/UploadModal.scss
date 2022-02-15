@@ -22,20 +22,24 @@
         margin-top: 30px;
         label { 
             @include w-h(600px, 430px);
-            border-radius: 5px;
             background-position: center top;
             background-repeat: no-repeat !important;
             position: relative;
+            background-size: 600px !important;
+            background-color: #f6f6f6;
+            border: 2px solid lightgray;
+            width: 100%;
             @include dis-dir(flex, column);
             justify-content: center;
             .errorMessage {
                 @include absolutePos("", "", 30px, "");
                 background: #E90808;
-                padding: 10px 30px;
+                padding: 10px 60px;
                 border-radius: 45px;
                 align-self: center;
                 color: white;
                 z-index: 1;
+                font: 400 16px InterRegular;
                 #errorMessageUploadText {
                     font: 400 16px InterRegular;
                     b {
@@ -43,12 +47,15 @@
                     }
                 }
                 .iconWarning {
-                    margin-right: 14px;
+                    position: absolute;
+                    left: 33px;
+                    top: 11px;
                 }
                 .iconWarningClose {
-                    margin-left: 20px;
-                    margin-bottom: -3px;
+                    position: absolute;
                     cursor: pointer;
+                    right: 20px;
+                    top: 13px;
                 }
             }
             .progressBarWrapper {
@@ -147,7 +154,6 @@
         @include w-h(600px, 175px);
         padding: 15px;
         border: 2px solid rgba(211, 211, 211, 1);
-        border-radius: 5px;
         resize: none;
         outline-color: rgba(6, 182, 103, 1);
         margin-top: 10px;
@@ -160,21 +166,26 @@
         }
     }
     .inputfield:focus {
-        border: 2px solid white;
-        border-radius: 5px;
+        border: 2px solid rgba(6, 182, 103, 1);
+        border-radius: 0;
         color: black;
+    }
+    .inputfield:focus-visible {
+        border-radius: 0;
     }
     .buttons {
         display: flex;
         justify-content: space-between;
         margin-top: 30px;
-        max-width: 600px;
         .button {
-            @include fonter("InterSemiBold", 16px, 500, "");
-            padding: 15px 30px;
-            border-radius: 65px;
+            @include fonter("Inter", 14px, 500, "");
             cursor: pointer;
             line-height: normal;
+            border-radius: 0;
+            padding: 19px 30px;
+            height: auto;
+            background-color: #111111;
+            text-transform: uppercase;
         }
         .back {
             color: rgba(13, 13, 13, 1);
@@ -182,7 +193,7 @@
         }
         .send {
             color: rgba(255, 255, 255, 1);
-            background-color: rgba(6, 182, 103, 1);
+            background-color: #111111;
             img {
                 margin-left: 4px;
             }
@@ -198,25 +209,40 @@
     }
 }
 
-.successModal {
-    margin: auto;
-    text-align: center;
-    @include dis-dir(flex, column);
-    @include fonter(InterMedium, 36px, 500, 232323);
-    background: rgb(255, 255, 255);
-    border-radius: 10px;
-    padding: 50px;
-    max-width: 900px;
-    button {
-        font: 600 16px InterSemiBold;
-        color: white;
-        cursor: pointer;
-        border-radius: 65px;
-        padding: 15px 60px;
-        background: #06B667;
-        text-align: center;
-        border: 1px solid #000000;
-        margin: 0 auto;
-        margin-top: 40px;
+@media (max-width: 800px) {
+    .uploadModal {
+        .workUploadWindow {
+            label {
+                width: 100% !important;
+            }
+        }
+        .inputfield{
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .uploadModal {
+        .workUploadWindow {
+            .instruction{
+                font-size: 16px;
+            }
+            .opacity{
+                font-size: 12px;
+            }
+            label{
+                height: 350px;
+                .uploadWindowDescription{
+                    width: 100%;
+                }
+                .uploadWindowText{
+                    width: 100%;
+                }
+            }
+        }
+        .inputfield{
+            height: 130px;
+        }
     }
 }

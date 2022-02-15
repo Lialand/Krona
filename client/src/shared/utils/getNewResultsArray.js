@@ -1,3 +1,6 @@
+import createMathDecimalMethod from "./createMathDecimalMethod";
+createMathDecimalMethod();
+
 export default function getNewResultsArray(arr, placeValue, placeMaxValue) {
     let arrNames = arr.map(item => item.group.name); //Имена групп оценок
     let groupsNamesArray = []; //Имена групп оценок без повторения
@@ -19,8 +22,8 @@ export default function getNewResultsArray(arr, placeValue, placeMaxValue) {
         if (arrNames[i] !== arrNames[i + 1] && arrNames[i + 1]) {
             groupsNamesArray.push(arrNames[i]);
             groupsArray.push([]);
-            sumGradesArray.push(counterSumGrades);
-            sumMaxValuesArray.push(counterSumMaxValues);
+            sumGradesArray.push(Math.round10(counterSumGrades, -1));
+            sumMaxValuesArray.push(Math.round10(counterSumMaxValues, -1));
 
             totalGrades += counterSumGrades; //Итоговая оценка
             totalMaxValue += counterSumMaxValues; //Максимальная итоговая оценка
@@ -30,8 +33,8 @@ export default function getNewResultsArray(arr, placeValue, placeMaxValue) {
         }
         if (i === arr.length - 1) {
             groupsNamesArray.push(arrNames[i]);
-            sumGradesArray.push(counterSumGrades);
-            sumMaxValuesArray.push(counterSumMaxValues);
+            sumGradesArray.push(Math.round10(counterSumGrades, -1));
+            sumMaxValuesArray.push(Math.round10(counterSumMaxValues, -1));
             totalGrades += counterSumGrades;
             totalMaxValue += counterSumMaxValues;
         }
@@ -42,8 +45,8 @@ export default function getNewResultsArray(arr, placeValue, placeMaxValue) {
         details: [
             {
                 name: "Итоговый балл",
-                grade: totalGrades,
-                maxValue: totalMaxValue
+                grade: Math.round10(totalGrades, -1),
+                maxValue: Math.round10(totalMaxValue, -1),
             },
             {
                 name: "Место среди участников",

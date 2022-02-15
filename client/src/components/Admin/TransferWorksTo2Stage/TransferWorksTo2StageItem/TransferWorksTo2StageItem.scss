@@ -1,0 +1,21 @@
+@import "mixins";
+
+.transferWorksBtns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0px;
+    background-color: white;
+    button {
+        margin-top: 15px;
+        padding: 10px;
+        background-color: black;
+        color: white;
+        font: 500 14px InterMedium;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        &.acceptWork.active {
+            background-color: green;
+        }
+    }
+}

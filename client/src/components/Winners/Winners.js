@@ -87,7 +87,7 @@ function Winners(props) {
                             / ${param?.prizeWork[0]?.battlePrize?.name}`}</p>
                         <WorkItem
                             param={param}
-                            images={getPreviewImageURL(param?.versions[0]?.authorMockupURL)}
+                            image={getPreviewImageURL(param?.versions[0]?.authorMockupURL)}
                             isBest={true}
                             place={getWinner(resultsData.prizes, param.id)?.prizeName()}
                             placeImage={"/"+getWinner(resultsData.prizes, param.id)?.prizeImage()}

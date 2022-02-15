@@ -55,7 +55,7 @@ function Results(props) {
 
     useEffect(() => {
 
-        if (resultsData.length === 0) 
+        if (resultsData.length === 0 && storeBattle.id) 
             getResults(storeBattle.id);
 
     }, [storeBattle]);
@@ -117,7 +117,7 @@ function Results(props) {
                             className="userLink" 
                             href={param?.author?.site}
                             target="_blank"
-                        >{param?.author?.name}</a>
+                        >{param?.author?.name || param?.author?.login}</a>
                     </td>
                     {isMobile && 
                     <td className="resultsTBody place">
@@ -176,21 +176,19 @@ function Results(props) {
                 </tr>
                 )
             }
-            {openModal.isOpen && 
-                <ModalResults 
-                    workId={openModal.workId} 
-                    outSideClose={e => closeModal(e)}
-                    placeValue={openModal.placeValue}
-                    placeMaxValue={openModal.placeMaxValue}
-                    closeModal={() => setOpenModal({
-                        isOpen: false, 
-                        workId: null,
-                        placeValue: null,
-                        placeMaxValue: null
-                        })
-                    }
-                />
-            }
+            <ModalResults 
+                workId={openModal.workId} 
+                outSideClose={e => closeModal(e)}
+                placeValue={openModal.placeValue}
+                placeMaxValue={openModal.placeMaxValue}
+                show={openModal.isOpen}
+                closeModal={() => setOpenModal({
+                    isOpen: false, 
+                    workId: null,
+                    placeValue: null,
+                    placeMaxValue: null
+                })}
+            />
             </tbody>
         </table>
     )

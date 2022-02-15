@@ -56,6 +56,14 @@
         margin-top: 24px;
         color: white;
         font: 500 14px InterMedium;
+        &.withLink {
+            padding: 0;
+            a {
+                display: block;
+                color: white;
+                padding: 20px 40px;
+            }
+        }
     }
     .headingPic {
         vertical-align: top;

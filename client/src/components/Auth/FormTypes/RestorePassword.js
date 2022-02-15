@@ -3,7 +3,7 @@ import React from "react";
 export default function RestorePassword(props) {
 
     const {
-        enterBtn
+        handleOnKeyDown
     } = props;
 
     return (
@@ -13,7 +13,7 @@ export default function RestorePassword(props) {
                 name="email"
                 className="inputfield necessarily"
                 type="e-mail"
-                onKeyDown={enterBtn}
+                onKeyDown={handleOnKeyDown}
             />
         </div>
     )

@@ -1,21 +1,25 @@
 @import "mixins";
 
 .bckgrAuthModal {
-    @include dis-dir(flex, column);
+    display: -webkit-box;
+    align-items: center;
     justify-content: center;
     @include w-h(auto, auto);
     @include absolutePos(0, 0, 0, 0);
     position: fixed;
     z-index: 4;
     background: rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
 }
-
 .authModal {
     position: relative;
     background: white;
-    margin: auto;
     padding: 80px;
     max-width: 1050px;
+    overflow-y: hidden;
+    border-radius: 0!important;
+    border: none!important;
+    width: auto!important;
     .authModalHeading {
         color: black;
         font-weight: 500;
@@ -55,8 +59,11 @@
             p {
                 color: white;
             }
+            &.blocked {
+                background: rgb(107, 107, 107);
+            }
         }
-        .remembermeInput {
+        .checkboxInput {
             position: absolute;
             z-index: -1;
             opacity: 0;
@@ -99,20 +106,24 @@
                 }
             }
         }
-        .rememberme {
+        .checkbox {
             align-self: center;
             margin: 0;
             margin-left: 32px;
             cursor: pointer;
             display: flex;
-            .remembermeField {
+            .agreementLink {
+                text-decoration: underline;
+                color: inherit;
+            }
+            .checkboxField {
                 @include w-h(24px, 24px);
                 border: none;
                 margin: 0;
                 margin-right: 16px;
                 cursor: pointer;
             }
-            .remembermeText {
+            .checkboxText {
                 font: 500 14px InterMedium;
                 align-self: center;
             }
@@ -174,5 +185,38 @@
     }
     .logwithhelpIcon {
         margin: 18px;
+    }
+}
+
+@media (max-width: 800px) {
+    .authModal {
+        .confirmEnter.registration {
+            flex-direction: column;
+            .checkbox {
+                margin-top: 32px;
+                margin-left: 0;
+            }
+        }
+    }
+}
+@media (max-width: 500px){
+    .authModal {
+        margin: auto;
+        padding: 30px 20px;
+        .authModalHeading{
+            line-height: 100%;
+            font-size: 22px;
+            margin-right: 40px;
+        }
+        .authForm{
+            margin-top: 30px;
+        }
+        .closeModal{
+            width: 30px;
+            height: 30px;
+            .closeModalImage{
+                width: 10px;
+            }
+        }
     }
 }

@@ -1,59 +1,35 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 
+import { restorePassword } from "reduxFolder/actions/AjaxActions";
 import AuthModal from "../../Auth/AuthModal";
 import Notice from "../../Auth/Notice/Notice";
 import MessageModal from "../MessageModal/MessageModal";
-import { battles } from "constants/pages";
-import { restorePasswordURL } from "constants/URLs";
 
 import "./RestorePassword.scss";
 
-export default function RestoreAccount() {
+function RestorePassword({ restorePassword }) {
 
     const { search } = useLocation(); //Гет-параметры: е-мейл и ключ активации
 
-    const [isSuccess, setIsSuccess] = useState(false); 
-    const [isError, setIsError] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(undefined); 
+    const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
     const [prompt, setPrompt] = useState("");
     const [isActivePassView, setIsActivePassView] = useState(false);
     const [firstFieldPsw, setFirstFieldPsw] = useState("");
     const [secondFieldPsw, setSecondFieldPsw] = useState("");
+    const [notice, setNotice] = useState({
+        isError: false,
+        type: "",
+        show: false,
+        text: ""
+    });
     const [params, setParams] = useState({
         email: search?.split("email=")[1]?.split("&")[0],
         password: "",
         activationKey: search?.split("activationKey=")[1]
     });
-
-    //Блок кода нужен для контроля открыть/закрыть модального окна авторизации и сообщения об ошибке
-    const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
-    function closeModal(e) {
-
-        if (e.target.tagName !== "SECTION") 
-            return;
-
-        setIsOpenAuthModal(false);
-        setIsError(false);
-    }
-    /////////////////////////////////
-
-    function sendParams() {
-
-        axios({
-            url: restorePasswordURL,
-            method: "POST",
-            data: params
-        }).then(
-            res => {
-                setIsSuccess(true);
-            }, 
-            err => {
-                setIsError(true);
-            }
-        )
-
-    };
 
     function checkFields() {
 
@@ -63,17 +39,21 @@ export default function RestoreAccount() {
             setPrompt("Пароли не совпадают");
         } else {
             setParams(state => ({...state, password: secondFieldPsw}));
-            sendParams();
         }
     }
+
+    useEffect(() => {
+        if (params.password !== "")
+            restorePassword(params, setIsSuccess);
+    }, [params]);
 
     if (search === "")
         return (
             <section className="restore">
-                <h1 className="restoreHeading">Нет параметров в url</h1>
+                <h1 className="restoreHeading">Неверный URL</h1>
             </section>
         )
-    if (!isSuccess) 
+    else if (isSuccess === undefined || isSuccess === "error") 
         return (
             <section className="restorePsw">
                 <img src="/assets/images/restorepsw-pic.png" />
@@ -124,11 +104,10 @@ export default function RestoreAccount() {
                 <button onClick={checkFields} className="enterbutton">
                     Сменить пароль
                 </button>
-                {isError && 
+                {isSuccess === "error" && 
                     <MessageModal 
                         text="Произошла ошибка при смене пароля"
-                        closeModal={() => setIsError(false)} 
-                        outSideClose={e => closeModal(e)}
+                        closeModal={() => setIsSuccess(undefined)} 
                     />
                 }
             </section>
@@ -142,12 +121,18 @@ export default function RestoreAccount() {
                     Войти
                 </button>
             </section>
-            {isOpenAuthModal && 
-                <AuthModal 
-                    close={() => setIsOpenAuthModal(false)}
-                    outSideClose={e => closeModal(e)}
-                />
-            }
+            <AuthModal 
+                close={() => setIsOpenAuthModal(false)}
+                show={isOpenAuthModal}
+                notice={notice}
+                setNotice={setNotice}
+            />
         </section>
     )
 }
+
+const mapDispatchToProps = (dispatch) => ({
+    restorePassword: (params, immediatlySetData) => dispatch(restorePassword(params, immediatlySetData))
+})
+
+export default connect(null, mapDispatchToProps)(RestorePassword);

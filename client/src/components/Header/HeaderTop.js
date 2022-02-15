@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import SendWorkBtn from "components/Sidebar/SendWorkBtn";
+
 import { 
-    battles,
-    works
+    battles
  } from "constants/pages";
 
 function HeaderTop(props) {
@@ -14,6 +15,7 @@ function HeaderTop(props) {
                 <img className="logoImage" src="/assets/images/logo.svg" />
                 <Link to={battles} className={props.battlesPage ? "logoText" : "logoText works"}>Krona.Battles</Link>
             </div>
+            {props.isLastBattle && <SendWorkBtn />}
             <div onClick={props.openSidebar} className="burgerMenu">
                 <img src="/assets/images/burger-open.svg" />
             </div>

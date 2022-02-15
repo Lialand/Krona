@@ -2,7 +2,6 @@ import React from "react";
 
 import Login from "../FormTypes/Login";
 import Registration from "../FormTypes/Registration";
-import RestoreAccount from "../FormTypes/RestoreAccount";
 import RestorePassword from "../FormTypes/RestorePassword";
 
 import "./AuthInputs.scss";
@@ -13,18 +12,20 @@ const FormType = (props) => {
         formType,
         isActivePassView,
         setIsActivePassView,
-        enterBtn
+        handleOnKeyDown,
+        handleChange,
+        hint
     } = props;
     const standartProps = {
         isActivePassView,
         setIsActivePassView,
-        enterBtn
+        handleOnKeyDown,
+        handleChange,
+        hint
     }
     
     if (formType === "RESTORE_PASSWORD") {
-        return <RestorePassword enterBtn={enterBtn} />
-    } else if (formType === "RESTORE_ACCOUNT") {
-        return <RestoreAccount {...standartProps} />
+        return <RestorePassword handleOnKeyDown={handleOnKeyDown} />
     } else if (formType === "REGISTRATION") {
         return <Registration {...standartProps} />
     } else {
@@ -39,17 +40,21 @@ export default function AuthInputs(props) {
         formType,
         isActivePassView,
         setIsActivePassView,
-        enterBtn,
-        error
+        handleOnKeyDown,
+        handleChange,
+        error,
+        hint
     } = props;
 
     return (
-        <div className={`authInputs ${error.isError && error.show  ? "error" : ""}`}>
+        <div className={`authInputs ${error?.isError && error?.show  ? "error" : ""}`}>
             <FormType 
                 formType={formType}
                 isActivePassView={isActivePassView}
                 setIsActivePassView={setIsActivePassView}
-                enterBtn={enterBtn}
+                handleOnKeyDown={handleOnKeyDown}
+                handleChange={handleChange}
+                hint={hint}
             />
         </div>
     )

@@ -1,0 +1,229 @@
+@import "mixins";
+@import "codemirror/lib/codemirror.css";
+@import "codemirror/theme/material.css";
+
+.redactBattle {
+    @include dis-dir(flex, column);
+    align-items: flex-start;
+    .changeBattleLink {
+        font-size: 18px;
+        margin-top: 24px;
+    }
+    .addBtn {
+        border: 1px solid black;
+        font: 600 20px InterMedium;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 110px;
+        align-self: center;
+        background: lightgreen;
+    }
+    .materialDelete {
+        font-weight: 600;
+        cursor: pointer;
+        padding: 5px;
+        padding-top: 20px;
+    }
+    .redactBasicGroup {
+        display: flex;
+        justify-content: flex-end;
+        .basicSelect {
+            width: 280px;
+        }
+        .prompt {
+            display: flex;
+            align-self: center;
+            margin-right: 10px;
+        }
+        .inputfield {
+            margin-top: 0;
+        }
+    }
+    .redactRoles {
+        min-height: 600px;
+        .selectsGroup {
+            margin: 10px 0;
+        }
+        .criterionsWarning {
+            color: pink;
+            width: 350px;
+            margin-top: 10px;
+        }
+    }
+    .selectStyled {
+        margin-top: 10px;
+        i.icon.delete:before {
+            content: "\2716";
+        }
+        span {
+            color: black;
+        }
+    }
+    .redactMission {
+        a {
+            font-size: 16px;
+        }
+        .redactBlocks {
+            display: flex;
+        }
+        .CodeMirror {
+            max-width: 100%;
+            background: black;
+            height: auto;
+            caret-color: white;
+            min-width: 500px;
+            div.CodeMirror-cursor {
+                border-left: 2px solid white;
+            }
+        }
+        .contentText {
+            min-width: 500px;
+            background: black;
+            margin: 0;
+            max-width: 100%;
+            padding: 16px;
+            margin-left: 16px;
+        }
+    }
+    .selectHeading {
+        color: black;
+        margin-top: 10px;
+    }
+    .roleDelete {
+        cursor: pointer;
+        margin-left: 20px;
+    }
+    .rolesSelects {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .selectsGroup {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            &:not(:first-child) {
+                margin-left: 15px;
+            }
+        }
+    }
+    .selectUsers:not(:first-of-type) {
+        margin-left: 10px;
+    }
+    .rolesUl {
+        padding: 10px;
+        margin: 0;
+        border: 1px solid black;
+        margin-top: 6px;
+        li {
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    .inputs {
+        &.mission {
+            background-color: black;
+            @include w-h(100%, 100%);
+            flex-direction: column;
+            .textarea {
+                width: 100%;
+            }
+        }
+    }
+    .redactCriterions {
+        padding: 16px;
+        background: rgb(218, 214, 214);
+        width: 1100px;
+    }
+    .criterionsTable {
+        border-collapse: separate;
+        background: white;
+        padding: 10px;
+        width: 100%;
+        &.openedGroup {
+            tbody {
+                display: table-row-group;
+            }
+        }
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
+        tbody {
+            display: none;
+        }
+        tr {
+            border: 1px solid black;
+            text-transform: uppercase;
+            th, td {
+                padding: 6px;
+                border: 1px solid black;
+                &.deleteTH {
+                    padding: 0;
+                    width: 100px;
+                }
+                &.maxValueTD,
+                &.openListTH {
+                    width: 135px;
+                    padding: 0;
+                }
+                &.name {
+                    width: 50%;
+                }
+                &.criterionHeading {
+                    font-size: 16px;
+                    color: black;
+                    border: none;
+                    text-transform: none;
+                    padding-left: 0;
+                }
+                button, 
+                .inputMaxValue {
+                    width: 100%;
+                    padding: 6px;
+                    border: none;
+                }
+            }
+            th {
+                font-weight: normal;
+                &.name {
+                    width: 50%;
+                }
+                &.juryTH {
+                    width: 200px;
+                    text-align: center;
+                }
+            }
+            td {
+                overflow: auto;
+                &.chooseCriterionTD {
+                    max-width: 200px;
+                    padding: 0;
+                }
+                .selectCriterion {
+                    width: 100%;
+                    border: none;
+                }
+                &.selectJuryTD {
+                    overflow: visible;
+                    padding: 0;
+                    .selectJury {
+                        margin: 0;
+                        border: none;
+                    }
+                }
+                .innerBtn.delete {
+                    height: 100%;
+                }
+            }
+        }
+    }
+    .inputfield.criterionGroupInput {
+        border: none;
+        padding-left: 0;
+        font-size: 20px;
+    }
+    a.active {
+        color: pink;
+    }
+}

@@ -3,13 +3,14 @@
 .headerFilter {
     display: flex;
     padding: 0;
+    overflow: auto;
     &, li {
         margin: 0;
         padding: 0;
         list-style: none;
     }
     .iconFilter {
-        padding-right: 16px;
+        padding: 16px;
         border-right: solid 1px #2C2C2C;
         display: flex;
     }
@@ -34,6 +35,7 @@
                 padding: 16px;
                 line-height: 14px;
                 padding-bottom: 16px;
+                white-space: nowrap;
                 &.active,
                 &:hover {
                     border-bottom: 1px solid white;
@@ -66,8 +68,8 @@
         .filterMenu {
             li {
                 a {
-                    padding: 16px;
-                    line-height: 16px;
+                    padding: 15px;
+                    line-height: 15px;
                 }
             }
         }

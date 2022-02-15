@@ -46,11 +46,6 @@ function WorkViewingItem(props) {
 
     const isMobile = useMediaQuery({maxWidth: 780});
 
-    function closeModal(e) {
-        if (e.target.tagName === "SECTION")
-            setIsOpenResultsModal(false);
-    }
-
     useEffect(() => {
         setActiveVersion(
             buttonOldChanged
@@ -61,7 +56,7 @@ function WorkViewingItem(props) {
 
     return (
         <section className="workViewing">
-            <ReactHelmet isWorkViewingPage={true} username={work?.author?.name} battleName={battleName} battleDate={battleDate}  />
+            <ReactHelmet isWorkViewingPage={true} username={work?.author?.name || work?.author?.login} battleName={battleName} battleDate={battleDate}  />
             <header className="workViewingHeader" >
                 <UserInfo 
                     setIsOpenResultsModal={() => setIsOpenResultsModal(true)}
@@ -97,15 +92,13 @@ function WorkViewingItem(props) {
                     onTouchEnd={endImageTouch}
                 />
             </div>
-            {isOpenResultsModal && 
-                <ModalResults 
-                    outSideClose={e => closeModal(e)}
-                    closeModal={() => setIsOpenResultsModal(false)}
-                    placeValue={placeValue}
-                    placeMaxValue={placeMaxValue}
-                    workId={workId}
-                />
-            }
+            <ModalResults 
+                show={isOpenResultsModal}
+                closeModal={() => setIsOpenResultsModal(false)}
+                placeValue={placeValue}
+                placeMaxValue={placeMaxValue}
+                workId={workId}
+            />
             {!isItFirstWork && (
                 <button onClick={previousWork} className="leaf leaf-back" />
             )}

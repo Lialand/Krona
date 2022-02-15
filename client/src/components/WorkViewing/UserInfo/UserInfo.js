@@ -30,7 +30,7 @@ export default function UserInfo(props) {
                 />
             </a>
             <div className="thumbnailInfo">
-                <a href={work?.author?.site} className="username" target="_blank">{work?.author?.name}</a>
+                <a href={work?.author?.site} className="username" target="_blank">{work?.author?.name || work?.author?.login}</a>
                 {isMobile 
                     ?
                     <div className="stat">

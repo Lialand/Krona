@@ -3,7 +3,8 @@
  * окна загрузки работы.
  */
 
-import React from "react";
+import React, { useEffect } from "react";
+import { Scrollbars } from "react-custom-scrollbars";
 
 import WorkItem from "../../Works/WorkItem";
 
@@ -15,19 +16,27 @@ import {
 export default function SecondPageWizard(props) {
  
     const {
-        myWorksData,
+        myWorks,
         setUploadWorkId,
         setChsdWork,
         setPage,
-        chsdWork
+        chsdWork,
+        isSecondStage
     } = props;
+
+    useEffect(() => {
+        
+        setUploadWorkId(myWorks[0]?.id);
+    }, []);
 
     return (
         <div className="changeWork">
             <h3>Выберите работу для обновления</h3>
-            <div className="worksList">
-                {myWorksData?.length !== 0 &&
-                    myWorksData.works.map((param, i) => (
+            <Scrollbars 
+                style={{width: "650px", height: "360px"}}
+            >
+                <div className="worksList">
+                    {myWorks?.map((param, i) => (
                         <WorkItem
                             chooseWork={() => {
                                 setUploadWorkId(param.id);
@@ -37,17 +46,19 @@ export default function SecondPageWizard(props) {
                             chsdWork={i === chsdWork}
                             key={"workItemWizard_" + i}
                             image={getPreviewImageURL(
-                                param.versions[0].authorMockupURL
+                                param.versions[0]?.authorMockupURL
                             )}
                             param={param}
                         />
-                    ))
-                }
-            </div>
+                    ))}
+                </div>
+            </Scrollbars>
             <div className="buttons move">
+                {!isSecondStage &&
                 <button onClick={() => setPage(1)}>
                     Назад
                 </button>
+                }
                 <button
                     onClick={() => setPage(3)}
                 >

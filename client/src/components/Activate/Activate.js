@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 
 import AuthModal from "../Auth/AuthModal";
 import MessageModal from "../Restore/MessageModal/MessageModal";
-import { restore } from "constants/pages";
 import { activateURL } from "constants/URLs";
 import { getActivation } from "reduxFolder/actions/AjaxActions";
 
@@ -17,24 +16,19 @@ function Activate(props) {
         activationData,
         activationError
     } = props;
+    const [notice, setNotice] = useState({
+        isError: false,
+        type: "",
+        show: false,
+        text: ""
+    });
 
     const { search, state } = useLocation(); //Гет-параметры: емейл и ключ активации
-
-    //Блок кода нужен для контроля открыть/закрыть модального окна авторизации 
     const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
-    function closeModal(e) {
-
-        if (e.target.tagName !== "SECTION") 
-            return;
-
-        setIsOpenAuthModal(false);
-    }
-    /////////////////////////////////
 
     useEffect(() => {
 
-        console.log(123);
-        if (state?.prevPath !== restore) {
+        if (search !== "") {
             getActivation(activateURL+search);
         }
 
@@ -43,7 +37,7 @@ function Activate(props) {
     if (search === "")
         return (
             <section className="activate">
-                <h1 className="activateHeading">Нет параметров в url</h1>
+                <h1 className="activateHeading">Неверный URL</h1>
             </section>
         )
     else if (activationError !== "")
@@ -65,12 +59,12 @@ function Activate(props) {
             <button type="button" className="enterbutton" onClick={() => setIsOpenAuthModal(true)}>
                 Войти в личный кабинет
             </button>
-            {isOpenAuthModal && 
             <AuthModal 
                 close={() => setIsOpenAuthModal(false)}
-                outSideClose={e => closeModal(e)}
+                show={isOpenAuthModal}
+                notice={notice}
+                setNotice={setNotice}
             />
-            }
         </section>
     )
 }

@@ -6,11 +6,27 @@ import { getAuth } from "reduxFolder/actions/AjaxActions";
 import { 
     loginURL, 
     registerURL, 
-    startRestorePswURL, 
-    restoreAccountURL 
+    startRestorePswURL
 } from "../constants/URLs";
+import { 
+    success, 
+    error 
+} from "../constants/texts";
+import { loginValid } from "../constants/validValues";
 
-export function isEmptyFields(formData) {
+function isValidSymbols(formData, setHint) {
+
+    for (let field of formData.entries()) {
+
+        if (/\s/.test(field[1]) || field[0] === "login" && !loginValid.test(field[1])) {
+            setHint(field[0]);
+            return false;
+        } 
+    }
+    return true;
+}
+
+function isEmptyFields(formData) {
 
     for (let field of formData.entries()) {
 
@@ -32,20 +48,33 @@ export function isValidSite(site) {
     return !!validSites.filter(item => site.match(item)).length;
 }
 
-export function sendForm(form, props, setNotice) {
+export function sendForm(form, props, setHint) {
 
     let formData = new FormData(form.current);
+    let login = formData.get("login");
+    if (login) 
+        formData.set("login", login.trim().toLowerCase());
+    let username = formData.get("username");
+    if (username)
+        formData.set("username", username.trim().toLowerCase());
+
+    const { 
+        setNotice, 
+        formType,
+        closeModal,
+        redirectOnMain
+    } = props;
 
     if (isEmptyFields(formData)) {
         setNotice({
             show: true,
             isError: true,
-            text: "Заполните поля"
+            text: error.emptyFields
         });
         return;
     }  
 
-    if (props.formType === "LOGIN") {
+    if (formType === "LOGIN") {
 
         axios({
             url: loginURL,
@@ -55,10 +84,10 @@ export function sendForm(form, props, setNotice) {
             (res) => {
                 if (res.status === 200) {
                     store.dispatch(getAuth());
-                    if (props.redirectOnMain) {
+                    if (redirectOnMain) {
                         window.location.href = window.location.origin;
                     }
-                    props.closeModal();
+                    closeModal();
                 }
                 else {
                     console.log(res);
@@ -73,7 +102,7 @@ export function sendForm(form, props, setNotice) {
             }
         );  
 
-    } else if (props.formType === "REGISTRATION") {
+    } else if (formType === "REGISTRATION") {
 
         let prevSite = formData.get("site");
         let protocol = "https://";
@@ -85,12 +114,14 @@ export function sendForm(form, props, setNotice) {
 
         let site = formData.get("site");
 
+        if (!isValidSymbols(formData, setHint))
+            return;
         if (!isValidSite(site)) {
 
             setNotice({
                 show: true,
                 isError: true,
-                text: "Введён некорректный адрес соцсети. Пример: vk.com/имя_пользователя"
+                text: error.social
             });
             return;
         }
@@ -104,7 +135,7 @@ export function sendForm(form, props, setNotice) {
                 setNotice({
                     show: true,
                     isError: false,
-                    text: "Письмо с ссылкой на активацию отправлено вам на почту"
+                    text: success.reg
                 });
             },
             (err) => {
@@ -116,7 +147,7 @@ export function sendForm(form, props, setNotice) {
             }
         );
 
-    } else if (props.formType === "RESTORE_PASSWORD") {
+    } else if (formType === "RESTORE_PASSWORD") {
 
         axios({
             url: startRestorePswURL,
@@ -127,30 +158,7 @@ export function sendForm(form, props, setNotice) {
                 setNotice({
                     show: true,
                     isError: false,
-                    text: "Письмо с ссылкой на восстановление пароля отправлено вам на почту"
-                });
-            },
-            (err) => {
-                setNotice({
-                    show: true,
-                    isError: true,
-                    text: err.response.data.message
-                });
-            }
-        );
-
-    } else if (props.formType === "RESTORE_ACCOUNT") {
-
-        axios({
-            url: restoreAccountURL,
-            data: formData,
-            method: "POST",
-        }).then(
-            (res) => {
-                setNotice({
-                    show: true,
-                    isError: false,
-                    text: "Вам отправлено письмо на почту. Ожидайте сообщения от администратора в соцсети"
+                    text: success.restore_psw
                 });
             },
             (err) => {

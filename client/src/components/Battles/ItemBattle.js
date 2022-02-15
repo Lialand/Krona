@@ -4,16 +4,14 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 
-import { works, battleWithParamURL } from "constants/pages";
-import { setStoreBattleSwitch } from "reduxFolder/actions/Actions"
+import { works, battleWithParamURL, admin, redact_battle, redact_grades } from "constants/pages";
 
 import ItemBattleLow from "../Battles/ItemBattleLow";
 
 function ItemBattle(props) {
+
     const {
-        setStoreBattleSwitch,
         battleId,
         clickBattle,
         cover,
@@ -22,49 +20,54 @@ function ItemBattle(props) {
         name,
         startDate,
         finishDate,
-        category
+        category,
+        isAdmin
     } = props;
 
     return (
-        <Link
-            to={battleWithParamURL(battleId)+works}
-            onClick={() => {
-                clickBattle();
-                setStoreBattleSwitch(true);
-            }}
-            className="linkToWorks"
-        >
-            <div className="battleCover">
-                <img src={cover} className="battleCoverImage" />
-                <div className="battleInfoWrapper">
-                    <div className="battleInfo">
-                        <div className="battleStatus">{status}</div>
-                        <h4>{name}</h4>
-                        <div className="worksCount">{worksCount}</div>
+        <div className="itemBattle">
+            <Link 
+                to={battleWithParamURL(battleId) + works}
+                onClick={clickBattle}
+                className="linkToWorks"
+            >
+                <div className="battleCover">
+                    <img src={cover} className="battleCoverImage" />
+                    <div className="battleInfoWrapper">
+                        <div className="battleInfo">
+                            <div className="battleStatus">{status}</div>
+                            <h4>{name}</h4>
+                            <div className="worksCount">{worksCount}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="battleFooter">
-                <p className="battleName">{name}</p>
-                <p className="battleDates">
-                    {startDate} - {finishDate}
-                </p>
-                <ItemBattleLow 
-                    users={props.users}
-                    usersCount={props.usersCount}
-                />
-                <div className="category">{category}</div>
-            </div>
-        </Link>
+                <div className="battleFooter">
+                    <p className="battleName">{name}</p>
+                    <p className="battleDates">
+                        {startDate} - {finishDate}
+                    </p>
+                    <ItemBattleLow
+                        users={props.users}
+                        usersCount={props.usersCount}
+                        isAdmin={isAdmin}
+                        battleId={battleId}
+                    />
+                    <div className="category">{category}</div>
+                </div>
+            </Link>
+            {isAdmin &&
+                <div className="redactBattleLinks">
+                    Редактировать: 
+                    <Link to={admin + redact_battle + battleId}>
+                        Баттл
+                    </Link> 
+                    <Link to={admin + redact_grades + battleId}>
+                        Оценки работ
+                    </Link>
+                </div>
+            }
+        </div>
     );
 }
 
-const mapStateToProps = (state) => ({
-    storeWorks: state.reducer.storeWorks,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    setStoreBattleSwitch: (boolean) => dispatch(setStoreBattleSwitch(boolean))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ItemBattle);
+export default ItemBattle;

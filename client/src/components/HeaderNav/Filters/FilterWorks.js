@@ -23,7 +23,9 @@ function FilterWorks(props) {
     const { 
         worksData,
         storeBattle,
-        setStoreFilteredWorks
+        resultsData,
+        setStoreFilteredWorks,
+        lastBattleData
     } = props;
 
     const isMobile = useMediaQuery({maxWidth: 640});
@@ -32,11 +34,14 @@ function FilterWorks(props) {
     const { pathname } = useLocation();
 
     const properties = {
-        worksAmount: filterWorks(worksData, "SECOND_STAGE").worksAmount(),
+        worksAmount: filterWorks(worksData, "FIRST_STAGE").worksAmount(),
+        works2StageAmount: filterWorks(worksData, "SECOND_STAGE").worksAmount(),
+        winnersAmount: resultsData.prizes?.length,
         worksPage: battleWithParamURL(battleId)+works,
         worksSecondStagePage: battleWithParamURL(battleId)+works_stage2,
-        winnersPage: battleWithParamURL(battleId)+winners,
-        isCompletedBattle: storeBattle?.battleStageId === 6
+        winnersPage: battleWithParamURL(battleId)+winners, 
+        isCompletedBattle: storeBattle?.battleStageId === 6,
+        isLastBattle: lastBattleData?.name === storeBattle?.name && lastBattleData?.battleStageId !== 6
     };
 
     useEffect(() => {
@@ -58,7 +63,9 @@ function FilterWorks(props) {
 
 const mapStateToProps = (state) => ({
     worksData: state.ajaxReducer.worksData,
+    lastBattleData: state.ajaxReducer.lastBattleData,
     storeBattle: state.reducer.storeBattle,
+    resultsData: state.ajaxReducer.resultsData
 });
 
 const mapDispatchToProps = (dispatch) => ({

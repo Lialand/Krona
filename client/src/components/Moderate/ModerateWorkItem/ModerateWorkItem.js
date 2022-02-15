@@ -11,6 +11,7 @@ export default function ModerateWorkItem(props) {
 
     const {
         image,
+        chooseWork,
         acceptWork,
         rejectWork
     } = props;
@@ -19,6 +20,7 @@ export default function ModerateWorkItem(props) {
         <div className="contentBlock">
             <div
                 className="workLink"
+                onClick={chooseWork}
             >
                 <img 
                     src={image} 

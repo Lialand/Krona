@@ -2,6 +2,9 @@ import axios from "axios";
 
 import store from "reduxFolder/store/Store";
 import { getAuth } from "reduxFolder/actions/AjaxActions";
+import getImageSizes from "utils/getImageSizes";
+const constants = require("server/constants");
+const { MIN_SOURCE_IMAGE_WIDTH_PX } = constants;
 
 //Предварительная проверка файла
 export function prevCheck(prevCheckArgs) {
@@ -14,19 +17,21 @@ export function prevCheck(prevCheckArgs) {
     } = prevCheckArgs;
 
     if (startUploading) //Если началась загрузка файла
-        return;
+        return false;
 
     if (!fileChoosed) { //Если файл не выбран
         setError({
-            isError: true, 
-            text: "Сначала загрузите работу"
+            isError: true,
+            text: "Отсутствует файл работы"
         });
+        return false;
     } else {
         setSendConfirm(true); //Доступ к отправке работы
+        return true;
     }
 }
 
-//Проверка свойств изображения 
+//Проверка свойств изображения
 export function checkImage(file, checkImageArgs, readImageArgs) {
 
     const {
@@ -34,24 +39,24 @@ export function checkImage(file, checkImageArgs, readImageArgs) {
         redact,
         setError
     } = checkImageArgs;
-    
+
     if (!fileChoosed || fileChoosed && redact) {
         let reader = new FileReader();
 
         if (file?.length > 1) {
             setError({
-                isError: true, 
-                text: "Загрузите не более одного изображения"
+                isError: true,
+                text: "Загружено более одной работы"
             });
         } else if (file[0]?.type !== "image/jpeg" && file[0]?.type !== "image/png") {
             setError({
-                isError: true, 
-                text: `Файл <b>${file[0]?.name}</b> имеет недопустимый формат`
+                isError: true,
+                text: `Файл имеет недопустимый формат`
             });
         } else if ((file[0].size / 1024 / 1024) > 10) {
             setError({
-                isError: true, 
-                text: `Файл <b>${file[0]?.name}</b> превышает 10 MB`
+                isError: true,
+                text: `Файл превышает 10 MB`
             });
         } else {
             reader.readAsDataURL(file[0]);
@@ -62,7 +67,7 @@ export function checkImage(file, checkImageArgs, readImageArgs) {
 }
 
 //Чтение изображения для получения его ширины и установки превью
-function readImage(reader, readImageArgs, file) { 
+function readImage(reader, readImageArgs, file) {
 
     const {
         setError,
@@ -71,22 +76,44 @@ function readImage(reader, readImageArgs, file) {
     } = readImageArgs;
 
     reader.onloadstart = () => {
+        setError({
+            isError: false,
+            text: ""
+        });
         setFileChoosed(true);
     };
 
-    reader.onload = () => setPreviewImage(`url("${reader.result}")`);
+    reader.onload = () => {
+        getImageSizes(reader.result).then(
+            (resolve) => {
+
+                if (resolve.width < MIN_SOURCE_IMAGE_WIDTH_PX) {
+                    setError({
+                        isError: true,
+                        text: `Файл < ${MIN_SOURCE_IMAGE_WIDTH_PX}px по ширине`
+                    });
+                    setFileChoosed(false);
+                } else {
+                    setPreviewImage(`url("${reader.result}")`);
+                }
+            },
+            (reject) => {
+                console.log(reject);
+            }
+        );
+    };
     reader.onerror = () => {
         setError({
-            isError: true, 
-            text: `Произошла ошибка при чтении изображения: ${file[0]?.name}`
+            isError: true,
+            text: `Произошла ошибка при чтении файла`
         })
     }
 }
 
 //Функция для отправки формы с файлом, id баттла, id работы и комментарием
-export function sendForm(sendFormArgs) {
+export function sendForm(sendFormArgs, prevCheckArgs) {
 
-    const { 
+    const {
         setStartUploading,
         setDragOverStyle,
         form,
@@ -98,6 +125,9 @@ export function sendForm(sendFormArgs) {
         successUploaded
     } = sendFormArgs;
 
+    if (!prevCheck(prevCheckArgs))
+        return;
+
     setStartUploading(true); //Установлено начало загрузки работы
     setDragOverStyle("dragOver"); //Установлен стиль окна загрузки работы
 
@@ -106,7 +136,7 @@ export function sendForm(sendFormArgs) {
     body.append("battleId", battleId);
     body.append("workId", workId);
 
-    if (fileDataDnD) 
+    if (fileDataDnD)
         body.set("file", fileDataDnD[0]);
 
     axios({
@@ -126,7 +156,7 @@ export function sendForm(sendFormArgs) {
             if (error.response.status === 401) {
                 setError({
                     isError: true,
-                    text: "Сначала авторизуйтесь"
+                    text: "Для отправки работы необходимо авторизоваться"
                 });
                 store.dispatch(getAuth());
             } else {
@@ -135,7 +165,7 @@ export function sendForm(sendFormArgs) {
                     text: error.response.data.message
                 });
             }
-            
+
         }
     );
 }

@@ -2,15 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Scrollbars } from 'react-custom-scrollbars';
 import { connect } from "react-redux";
-import { compose } from "redux";
+import { Modal } from "react-bootstrap";
 
 import { getWorkDetailed } from "reduxFolder/actions/AjaxActions";
-import withReactPortal from "../HOC/withReactPortal";
 
 import getNewResultsArray from "utils/getNewResultsArray";
-import setCloseOnEsc from "utils/setCloseOnEsc";
 import ModalResultsItem from "./ModalResultsItem";
-
 import "./ModalResults.scss";
 
 function ModalResults(props) { 
@@ -18,8 +15,8 @@ function ModalResults(props) {
         workId,
         placeValue,
         placeMaxValue,
-        outSideClose,
         closeModal,
+        show,
 
         getWorkDetailed,
         workDetailedData,
@@ -33,7 +30,8 @@ function ModalResults(props) {
 
     useEffect(() => {
 
-        getWorkDetailed(workId);
+        if (workId)
+            getWorkDetailed(workId);
 
         if (workDetailedError) 
             console.log(workDetailedError);
@@ -50,19 +48,6 @@ function ModalResults(props) {
         }
     }, [workDetailedData]);
 
-    useEffect(() => {
-
-        let y = window.scrollY;
-
-        setCloseOnEsc(closeModal);
-        window.onscroll = () => window.scrollTo(0, y);
-
-        return () => {
-            window.onscroll = () => {};
-            setCloseOnEsc(closeModal, true);
-        };
-    }, []);
-
     if (
         workDetailedStart || 
         workDetailedError !== "" || 
@@ -70,31 +55,33 @@ function ModalResults(props) {
     ) 
         return <></>;
     return (
-        <section 
-            className="modalWrapper" 
-            onClick={outSideClose}
+        <Modal 
+            onHide={closeModal}
+            show={show} 
+            aria-labelledby="contained-modal-title-vcenter"
+            contentClassName="modalResults"
+            dialogClassName="resultsDialog"
+            centered
         >
-            <div className="modalResults">
-                {!isMobile && 
-                    <header className="modalResultsHeader">
-                        <div 
-                            onClick={closeModal} 
-                            className="closeModal"
-                        >
-                            <img src="/assets/images/cross-white.svg" className="closeModalImage" />
-                        </div>
-                    </header>
-                }
-                <Scrollbars 
-                    style={{paddingBottom: "48px", maxHeight: isMobile ? "100%" : "460px"}}
-                    renderTrackVertical={() => isMobile ? <div style={{display: "none"}}></div> : <div className="scrollTrack" />}
-                    renderThumbVertical={() => isMobile ? <div style={{display: "none"}}></div> : <div className="scrollThumb" />}
-                >
-                    <ModalResultsItem 
-                        detailedData={detailedData}
-                    />
-                </Scrollbars>
-            </div>
+            {!isMobile && 
+                <header className="modalResultsHeader">
+                    <div 
+                        onClick={closeModal} 
+                        className="closeModal"
+                    >
+                        <img src="/assets/images/cross-white.svg" className="closeModalImage" />
+                    </div>
+                </header>
+            }
+            <Scrollbars 
+                style={{paddingBottom: "48px", maxHeight: isMobile ? "100%" : "460px"}}
+                renderTrackVertical={() => isMobile ? <div style={{display: "none"}}></div> : <div className="scrollTrack" />}
+                renderThumbVertical={() => isMobile ? <div style={{display: "none"}}></div> : <div className="scrollThumb" />}
+            >
+                <ModalResultsItem 
+                    detailedData={detailedData}
+                />
+            </Scrollbars>
             {isMobile &&
             <>
                 <div className="emptyCloseModalBlock"></div>
@@ -108,7 +95,7 @@ function ModalResults(props) {
                 </div>
             </>
             }
-        </section>
+        </Modal>
     )
 };
 
@@ -122,4 +109,4 @@ const mapDispatchToProps = (dispatch) => ({
     getWorkDetailed: (workId) => dispatch(getWorkDetailed(workId)),
 });
 
-export default compose(connect(mapStateToProps, mapDispatchToProps), withReactPortal)(ModalResults);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalResults);

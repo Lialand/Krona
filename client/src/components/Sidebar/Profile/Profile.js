@@ -1,87 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import AuthModal from "../../Auth/AuthModal";
-import UploadWizard from "../../Upload/UploadWizard";
-import SuccessUpload from "../../Upload/SuccessUpload";
+import AuthModal from "components/Auth/AuthModal";
+import InfoModal from "components/InfoModal/InfoModal";
 
 import "./Profile.scss";
-
-const openUpload = (battle, openModal) => {
-
-    if (!battle.name) 
-        alert("Откройте баттл, в который хотите загрузить работу, затем нажмите на кнопку загрузки работы");
-    else if (battle.battleStageId !== 2 && battle.battleStageId !== 4)
-        alert(`Нельзя загрузить работу на этот баттл. Выбран: ${battle.name}`);
-    else 
-        openModal();
-}
 
 export default function Profile(props) {
 
     const {
-        isLogged,
-        logout,
-        storeBattle
+        storeAuth,
+        logout
     } = props;
 
     const [isOpenAuthModal, setIsOpenAuthModal] = useState(false);
-    const [isOpenUploadModal, setIsOpenUploadModal] = useState(false);
     const [isOpenSuccessModal, setIsOpenSuccessModal] = useState(false);
+    const [notice, setNotice] = useState({
+        isError: false,
+        type: "",
+        show: false,
+        text: ""
+    });
 
-    function closeModal(e) {
+    useEffect(() => {
 
-        if (e.target.tagName !== "SECTION") 
-            return;
-
-        setIsOpenAuthModal(false);
-        setIsOpenUploadModal(false)
-    }
+        if (!notice.isError && notice.show) {
+            setIsOpenAuthModal(false);
+            setIsOpenSuccessModal(true)
+        }
+    }, [notice]);
 
     return (
         <div className="profile">
-            {/* <a href="#" className="user">
-                <img src="/assets/images/avatar2.png" alt="" className="profileImage" />
-                <span className="profileName">sofi.webdesigner</span>
-            </a> */}
-            {isLogged !== undefined && 
-            (isLogged
+            {storeAuth.isLogged !== undefined && 
+            (storeAuth.isLogged
                 ?
-                <>
-                    <button className="enterSite" onClick={logout}>
-                        <img src="/assets/images/logout.svg" className="logImage" alt="logoutImage" />
-                        Выход
-                    </button>
-                    <button className="enterSite" onClick={() => openUpload(storeBattle, () => setIsOpenUploadModal(true))}>
-                        Загрузить работу
-                    </button>
-                </>
+                <div className="profileBlock">
+                    {/* <Link to={profile} className="profileData"> */}
+                    <div className="profileData">
+                        <img src={"/"+storeAuth?.data?.user?.avatar} alt="" className="profileImage" />
+                        <span className="profileName">{storeAuth?.data?.user?.name || storeAuth?.data?.user?.login}</span>
+                    </div>
+                    {/* </Link> */}
+                    <img 
+                        src="/assets/images/logout.svg" 
+                        onClick={logout} 
+                        className="logImage" 
+                        alt="logoutImage" 
+                    />
+                </div>
                 :
-                <button className="enterSite" onClick={() => setIsOpenAuthModal(true)}>
+                <button className="profileBlock enterSite" variant="primary" onClick={() => setIsOpenAuthModal(true)}>
                     <img src="/assets/images/logout.svg" className="logImage" alt="logoutImage" />
                     Вход / регистрация
                 </button>
             )}
-            {isOpenAuthModal && 
             <AuthModal 
+                show={isOpenAuthModal} 
                 close={() => setIsOpenAuthModal(false)}
-                outSideClose={e => closeModal(e)}
+                notice={notice}
+                setNotice={setNotice}
             />
-            }
-            {isOpenUploadModal &&
-            <UploadWizard 
-                close={() => setIsOpenUploadModal(false)}
-                outSideClose={e => closeModal(e)}
-                successUploaded = {() => {
-                    setIsOpenUploadModal(false); 
-                    setIsOpenSuccessModal(true)
-                }}
-            />
-            }
-            {isOpenSuccessModal &&
-            <SuccessUpload
+            <InfoModal
                 OK={() => setIsOpenSuccessModal(false)}
+                text={notice.text}
+                show={isOpenSuccessModal}
             />
-            }
         </div> 
     )
 }

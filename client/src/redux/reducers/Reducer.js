@@ -4,8 +4,6 @@ import {
     WORKS_VIEWING,
     WORK_CHANGED,
     WORK_ID,
-    HIDE_NAVIGATION,
-    HIDE_HEADER,
     SCROLL_WORKS_VALUE,
     SCROLL_RESULTS_VALUE,
     BATTLE_SWITCH,
@@ -49,10 +47,6 @@ export default function Reducer(state = initialState, action) {
             return { ...state, storeWorksViewing: action.payload };
         case WORK_ID:
             return { ...state, storeWorkId: action.payload };
-        case HIDE_NAVIGATION:
-            return { ...state, storeHideNavigation: action.payload };
-        case HIDE_HEADER:
-            return { ...state, storeHideHeader: action.payload };
         case SCROLL_WORKS_VALUE:
             return { ...state, storeScrollWorksValue: action.payload };
         case SCROLL_RESULTS_VALUE:

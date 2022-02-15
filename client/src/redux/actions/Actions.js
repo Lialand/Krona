@@ -4,8 +4,6 @@ import {
     BATTLE,
     WORKS_VIEWING,
     WORK_ID,
-    HIDE_NAVIGATION,
-    HIDE_HEADER,
     SCROLL_WORKS_VALUE,
     SCROLL_RESULTS_VALUE,
     BATTLE_SWITCH,
@@ -45,20 +43,6 @@ export function setStoreWorkId(workId) {
     return {
         type: WORK_ID,
         payload: workId,
-    };
-}
-
-export function setStoreHideNavigation(hideNavigation) {
-    return {
-        type: HIDE_NAVIGATION,
-        payload: hideNavigation,
-    };
-}
-
-export function setStoreHideHeader(hideHeader) {
-    return {
-        type: HIDE_HEADER,
-        payload: hideHeader,
     };
 }
 

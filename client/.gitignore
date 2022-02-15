@@ -10,3 +10,4 @@ bundle.js.LICENSE
 style.css
 .idea/
 build/
+src/jsconfig.json

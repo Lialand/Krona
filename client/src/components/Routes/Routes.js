@@ -4,79 +4,43 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router";
+import { Switch, Route, useLocation } from "react-router";
 import { connect } from "react-redux";
 
-import Works from "../Works/Works";
 import HeaderNav from "../HeaderNav/HeaderNav";
+import BattleNotFoundError from "../Errors/BattleNotFoundError"
 import {
-    works,
-    works_stage2,
-    battleWithParamURL
+    battleWithParamURL,
+    work_viewing
 } from "constants/pages";
 import { routes } from "constants/routes";
 
-import { 
-    getWorks, 
-    getMyWorks,
-    getResults 
-} from "reduxFolder/actions/AjaxActions";
-import {
-    setStoreBattle, setStoreFilteredWorks,
-} from "reduxFolder/actions/Actions";
+import { startGoToBattle } from "reduxFolder/actions/MainActions";
+import { getLastBattle } from "reduxFolder/actions/AjaxActions";
 
 function Routes(props) {
 
     const {
-        storeAuth,
         storeBattle,
-        storeWorkChanged,
-        setStoreFilteredWorks,
-
-        getWorks,
         worksStart,
-        worksError,
-        getMyWorks,
-        myWorksStart,
-        myWorksError,
-        getResults,
-        resultsError,
+        storeAuth,
+
+        startGoToBattle,
+        lastBattleData,
+        getLastBattle
     } = props;
 
     const [isWorks, setIsWorks] = useState(false);
 
+    const { pathname } = useLocation(); 
+
+    useEffect(() => storeBattle.name && startGoToBattle(storeBattle), [storeBattle]);
     useEffect(() => {
-        if (storeAuth.isLogged && storeBattle?.id) {
-            //Если пользователь авторизован и загружены данные баттла, то
-            //отправляется запрос на получение собственных работ заданного
-            //баттла.
-            getMyWorks(storeBattle.id);
-            if (myWorksError) {
-                console.log(myWorksError);
-            }
-        } 
-    }, [storeWorkChanged, storeAuth.isLogged, storeBattle]);
 
-    useEffect(() => { 
-        if (storeBattle?.name) {
-            //Обнуление отфильтрованных работ
-            setStoreFilteredWorks([]);
-            //Если данные баттла загружены, то запрос отправляется на
-            //получение всех работ по id баттла.
-            getWorks(storeBattle.id);
-            if (worksError !== "") {
-                console.log(worksError);
-            }
-
-            if (storeBattle.battleStageId === 6) {
-                getResults(storeBattle.id);
-                if (resultsError !== "") {
-                    console.log(resultsError);
-                }
-            }
-            
+        if (storeBattle.name && storeBattle.name === lastBattleData.name && lastBattleData.battleStageId !== 6) {
+            getLastBattle(true);
         }
-    }, [storeBattle]);
+    }, [pathname]);
 
     useEffect(() => {
         if (!worksStart) 
@@ -87,19 +51,17 @@ function Routes(props) {
         }
     }, [worksStart]);
 
+    if (storeBattle?.battleNotFound)
+        return <BattleNotFoundError />;
     return (
         <>
-        <Route path={battleWithParamURL()} component={HeaderNav} />
+        {!pathname.match(work_viewing) && <Route path={battleWithParamURL()} component={HeaderNav} />}
         <Switch>
-            <Route path={[battleWithParamURL()+works, battleWithParamURL()+works_stage2]}>
-                {!worksStart && isWorks && <Works />}
-            </Route>
             {routes.map((route, index) => (
                 <Route 
                     path={route.path} 
-                    children={<route.children />} 
+                    children={<route.children worksConditions={!worksStart && isWorks} />} 
                     key={index}
-                    exact={route.exact} 
                 />
             ))}
         </Switch>
@@ -109,25 +71,15 @@ function Routes(props) {
 }
 
 const mapStateToProps = (state) => ({
-    storeAuth: state.reducer.storeAuth,
     storeBattle: state.reducer.storeBattle,
-    storeWorkChanged: state.reducer.storeWorkChanged,
-
+    storeAuth: state.reducer.storeAuth,
     worksStart: state.ajaxReducer.worksStart,
-    worksError: state.ajaxReducer.worksError,
-    myWorksStart: state.ajaxReducer.myWorksStart,
-    myWorksError: state.ajaxReducer.myWorksError,
-    resultsError: state.ajaxReducer.resultsError,
+    lastBattleData: state.ajaxReducer.lastBattleData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setStoreBattle: (battle) => dispatch(setStoreBattle(battle)),
-    setStoreWorkId: (workId) => dispatch(setStoreWorkId(workId)),
-    setStoreFilteredWorks: (filteredWorks) => dispatch(setStoreFilteredWorks(filteredWorks)),
-
-    getWorks: (works) => dispatch(getWorks(works)),
-    getMyWorks: (myWorks) => dispatch(getMyWorks(myWorks)),
-    getResults: (results) => dispatch(getResults(results)),
+    startGoToBattle: (storeBattle) => dispatch(startGoToBattle(storeBattle)),
+    getLastBattle: (boolean) => dispatch(getLastBattle(boolean)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Routes);

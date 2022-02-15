@@ -11,7 +11,7 @@
 const BackButton = ({ workPage, battleName, battleId, prevPath }) => {
     return workPage
        ?
-       <Link className="link" to={prevPath || battleWithParamURL(battleId)+works}><img src="/assets/images/leaf-long.svg" />{`Баттл "${battleName}"`}</Link>
+       <Link className="link" to={prevPath || battleWithParamURL(battleId)+works}><img src="/assets/images/leaf-long.svg" />{`Баттл “${battleName}”`}</Link>
        :
        <Link className="link" to={battles}><img src="/assets/images/leaf-long.svg" />Все баттлы</Link> 
 }

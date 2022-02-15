@@ -10,6 +10,21 @@
     line-height: 49px;
 }
 
+%scrollLock {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+}
+
+.dialogClass {
+    max-width: 100%;
+}
+
+.ReactModal__Body--open {
+    overflow-y: hidden;
+    margin-right: 17px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -18,12 +33,22 @@ a {
     text-decoration: none;
 }
 
+html {
+    &.scrollLock {
+        @extend %scrollLock;
+        body, 
+        #render {
+            @extend %scrollLock;
+        }
+    }
+}
 body {
     @include m-p(0, 0);
     cursor: default;
     font-feature-settings: 'pnum' on, 'lnum' on;
     overflow-y: scroll; 
     background-color: black;
+    line-height: 1.25;
     &.modalOpened {
         @include absolutePos(0, 0, 0, 0, fixed);
     }
@@ -48,7 +73,7 @@ h2 {
 }
 
 p, .button, .enterbutton, span {
-    @include fonter(Inter, '', 600, white);
+    @include fonter(Inter, "", 600, white);
 }
 
 h3 {
@@ -56,7 +81,22 @@ h3 {
 }
 
 h4 {
-    @include fonter(Inter, 20px, '', white);
+    @include fonter(Inter, 20px, "", white);
+}
+
+.ck.ck-editor__main {
+    &>.ck-editor__editable {
+        background: black!important;
+        cursor: text;
+        border: none;
+        &.ck-focused {
+            border: none!important;
+        }
+    }
+    p, ul, ol, li {
+        font-weight: 500;
+        color: white;
+    }
 }
 
 .button {

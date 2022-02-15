@@ -17,6 +17,7 @@ import {
     setStoreScrollWorksValue,
     setStoreScrollResultsValue,
     setStoreFilteredWorks,
+    setStoreBattleSwitch,
 } from "reduxFolder/actions/Actions";
 import { getBattles, getResults } from "reduxFolder/actions/AjaxActions";
 
@@ -35,11 +36,11 @@ function Battles(props) {
         setStoreScrollWorksValue,
         setStoreScrollResultsValue,
         setStoreFilteredWorks,
+        setStoreBattleSwitch,
+        storeAuth,
 
-        getBattles,
         battlesData,
         battlesError,
-        getResults
     } = props;
 
     //Функция сбрасывает все скроллы и фильтр
@@ -103,14 +104,16 @@ function Battles(props) {
                             status={checkBattleStage(param.battleStageId)}
                             stageID={param.battleStageId}
                             worksCount={declentionWord(param.worksCount)}
-                            category={param.category.name}
+                            category={param.category?.name}
                             battleId={param.id}
                             clickBattle={() => {
                                 setStoreBattle(param);
+                                setStoreBattleSwitch(true);
                             }}
+                            isAdmin={storeAuth.data?.user?.roles?.admin}
                             
-                            users={param.users.top} 
-                            usersCount={param.users.count}
+                            users={param.users?.top} 
+                            usersCount={param.users?.count}
                         />
                     );
                 })}
@@ -120,6 +123,7 @@ function Battles(props) {
 
 const mapStateToProps = (state) => ({
     storeBattle: state.reducer.storeBattle,
+    storeAuth: state.reducer.storeAuth,
     storeFilteredBattles: state.reducer.storeFilteredBattles,
 
     battlesData: state.ajaxReducer.battlesData,
@@ -130,6 +134,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setStoreBattle: (battle) => dispatch(setStoreBattle(battle)),
     setStoreFilteredWorks: (filteredWorks) => dispatch(setStoreFilteredWorks(filteredWorks)),
+    setStoreBattleSwitch: (boolean) => dispatch(setStoreBattleSwitch(boolean)),
     setStoreScrollWorksValue: (scrollWorksValue) =>
         dispatch(setStoreScrollWorksValue(scrollWorksValue)),
     setStoreScrollResultsValue: (scrollResultsValue) =>

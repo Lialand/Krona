@@ -8,7 +8,8 @@ export default function LabelSymbols(props) {
         sendConfirm,
         setRedact,
         clearAll,
-        progress
+        progress,
+        previewImage
     } = props;
 
     return (
@@ -27,7 +28,7 @@ export default function LabelSymbols(props) {
                     </div>
                 </div>
             ) : (
-                !sendConfirm &&
+                ((!sendConfirm || error.isError) && previewImage !== null) && //Если ещё не доступна загрузка работы и превью есть
                 <>
                     <img
                         className="icon iconRedact"

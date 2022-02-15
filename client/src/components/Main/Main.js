@@ -1,141 +1,83 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-
-import Header from "../Header/Header";
-import Sidebar from "../Sidebar/Sidebar";
-import Routes from "../Routes/Routes";
-import BattleNotFoundError from "../Errors/BattleNotFoundError";
+import { Route, Redirect, Switch, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-    setStoreBattle,
-    setStoreHideNavigation,
-    setStoreHideHeader
-} from "reduxFolder/actions/Actions";
-import { 
-    getAuth,
-    getBattleDetailed, 
-    getBattles, 
-    getLastBattle, 
-    getLogout
-} from "reduxFolder/actions/AjaxActions"
-import { battles, work_viewing } from "constants/pages";
+import "semantic-ui-css/semantic.min.css";
+
+import Sidebar from "../Sidebar/Sidebar";
+
+import { topRoutes } from "constants/routes.js";
+import { battles } from "constants/pages.js";
+import { getLogout, getMyWorks } from "reduxFolder/actions/AjaxActions";
+import { startApp } from "reduxFolder/actions/MainActions";
+import hideScroll from "utils/hideScroll";
 
 import "./Main.scss";
 
 function Main(props) {
 
     const {
-        storeBattle,
-        storeAuth,
-        setStoreHideNavigation,
-        setStoreHideHeader,
-
-        getBattleDetailed,
-        battleDetailedError,
         battlesData,
-        getBattles,
+        startApp,
+        storeBattle,
         getLogout,
-        getAuth,
-        getLastBattle
+        getMyWorks,
+        storeAuth,
+        lastBattleData
     } = props;
-
-    let { pathname } = useLocation();
+    const { pathname } = useLocation();
 
     const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+    hideScroll(isOpenSidebar);
+
+    //Начальные запросы приложения
+    useEffect(() => startApp(), []);
     useEffect(() => {
-        
-        if (isOpenSidebar) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body?.style.removeProperty("overflow");
+        if (storeAuth.isLogged && lastBattleData.id) {
+            getMyWorks(lastBattleData.id);
         }
-    }, [isOpenSidebar]);
+    }, [storeAuth, lastBattleData]);
 
-    useEffect(() => {
-
-        getLastBattle();
-        if (battlesData.length === 0) 
-            getBattles();
-
-    }, []);
-
-    //Управление показом хедера и навигации
-    useEffect(() => { 
-
-        if (
-            pathname === battles ||
-            `/${pathname.split('/')[3]}/` === work_viewing
-        )
-            setStoreHideNavigation(true);
-        else 
-            setStoreHideNavigation(false);
-
-        if (pathname === battles) 
-            setStoreHideHeader(true);
-        else 
-            setStoreHideHeader(false);
-
-    }, [pathname]);
-
-    //Здесь посылается запрос на состояние пользователя: авторизован или нет
-    useEffect(() => {
-
-        getAuth();
-    }, []);
-
-    const [battleNotFound, setBattleNotFound] = useState(false);
-    useEffect(() => {
-        if (storeBattle?.name) { //storeBattle устанавливается в Header.js
-
-            getBattleDetailed(storeBattle?.id);
-            if (battleDetailedError)
-                console.log(battleDetailedError);
-
-        } else if (storeBattle.battleNotFound) {
-            setBattleNotFound(true);
-        }
-    }, [storeBattle]);
-
-    if (battleNotFound)
-        return <BattleNotFoundError />;
     return (
         <>
             <Sidebar 
                 isOpenSidebar={isOpenSidebar}
                 closeSidebar={() => setIsOpenSidebar(false)}
                 battlesCount={battlesData.length}
-                isLogged={storeAuth.isLogged}
-                logout={getLogout}
+                logout={() => getLogout(pathname.match(/battles\/[0-9]+/) && storeBattle)}
             />
             <main className="main moveSidebar">
-                <Header 
-                    openSidebar={() => setIsOpenSidebar(true)}
-                />
-                <Routes />
+                <Switch>
+                    {topRoutes.map((route, index) => 
+                        <Route 
+                            path={route.path} 
+                            children={
+                                <route.children 
+                                    storeAuth={storeAuth} 
+                                    openSidebar={() => setIsOpenSidebar(true)} 
+                                />
+                            } 
+                            key={index}
+                            exact={route.exact} 
+                        />
+                    )}
+                    <Redirect from="" to={battles} />
+                </Switch>
             </main>
         </>
     );
 }
 
 const mapStateToProps = (state) => ({
+    battlesData: state.ajaxReducer.battlesData,
     storeAuth: state.reducer.storeAuth,
     storeBattle: state.reducer.storeBattle,
-
-    battleDetailedError: state.ajaxReducer.battleDetailedError,
-    battlesData: state.ajaxReducer.battlesData,
-    lastBattleData: state.ajaxReducer.lastBattleData,
+    lastBattleData: state.ajaxReducer.lastBattleData
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setStoreBattle: (battle) => dispatch(setStoreBattle(battle)),
-    setStoreHideNavigation: (boolean) => dispatch(setStoreHideNavigation(boolean)),
-    setStoreHideHeader: (boolean) => dispatch(setStoreHideHeader(boolean)),
-
-    getBattleDetailed: (battleDetailed) => dispatch(getBattleDetailed(battleDetailed)),
-    getBattles: () => dispatch(getBattles()),
-    getLastBattle: () => dispatch(getLastBattle()),
-    getLogout: () => dispatch(getLogout()),
-    getAuth: () => dispatch(getAuth()),
+    getLogout: (storeBattle) => dispatch(getLogout(storeBattle)),
+    startApp: () => dispatch(startApp()),
+    getMyWorks: (id) => dispatch(getMyWorks(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,0 +1,86 @@
+@import "mixins";
+
+.admin {
+    @include dis-dir(flex, column);
+    justify-content: flex-start;
+    padding: 0 40px;
+    padding-bottom: 100px;
+    background: #fff;
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+    .prompt {
+        font: 500 14px InterMedium;
+        color: black;
+    }
+    .adminHeading {
+        font: 500 39px InterBold; 
+        margin-top: 48px;
+        max-width: 470px;
+        text-align: center;
+        letter-spacing: -0.05em;
+        color: black;
+    }
+    input {
+        outline: none;
+    }
+    .inputs {
+        display: flex;
+        margin-top: 30px;
+        justify-content: flex-start;
+        &.many {
+            flex-direction: column;
+            .inputGroup {
+                &:not(:first-of-type) {
+                    margin-left: 0;
+                    margin-top: 16px;
+                }
+            }
+        }
+    }
+    .inputGroup {
+        position: relative;
+        &:not(:first-of-type) {
+            margin-left: 16px;
+        }
+    }
+    .inputfield {
+        width: 280px;
+        border: 1px solid rgba(44, 44, 44, 0.2);
+        color: #565656;
+        font: 500 14px InterMedium;
+        margin-top: 16px;
+        background-color: white!important;
+        padding: 20px;
+        box-shadow: inset 0 0 0 50px #fff;
+        -webkit-text-fill-color: #000;
+        &:focus,
+        &:hover {
+            border-color: rgba(44, 44, 44, 1);
+        }
+    }
+    .enterbutton {
+        display: block;
+        font-weight: 500;
+        background: rgb(0, 0, 0);
+        cursor: pointer;
+        padding: 20px 40px;
+        border: none;
+        margin-top: 24px;
+        color: white;
+        font: 500 14px InterMedium;
+        align-self: flex-start;
+    }
+    .links {
+        display: flex;
+        a:not(:first-child) {
+            margin-left: 20px;
+        }
+    }
+    a {
+        font: 500 28px InterMedium;
+        &.active {
+            color: black;
+        }
+    }
+}

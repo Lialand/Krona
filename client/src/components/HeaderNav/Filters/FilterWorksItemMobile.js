@@ -6,7 +6,7 @@ export default function FilterWorksItemMobile(props) {
     const [isOpenFilter, setIsOpenFilter] = useState(false);
 
     const {
-        worksAmount,
+        works2StageAmount,
         worksPage,
         worksSecondStagePage,
         winnersPage,
@@ -22,7 +22,7 @@ export default function FilterWorksItemMobile(props) {
                         1 этап
                     </Link>
                 </li>
-                {worksAmount !== 0 &&
+                {works2StageAmount !== 0 &&
                 <li onClick={() => setIsOpenFilter(false)}>
                     <Link to={worksSecondStagePage}>
                         2 этап

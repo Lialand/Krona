@@ -20,10 +20,6 @@ export default function AuthFormLow(props) {
                     Войти
                 </p>
             }
-            {/* <p className="slash">/</p>
-            <p className="authFormLowItem" onClick={props.setFormRestoreAccount}>
-                Восстановление аккаунта
-            </p> */}
         </div>
     )
 }

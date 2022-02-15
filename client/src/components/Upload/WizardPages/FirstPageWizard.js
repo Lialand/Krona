@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
  
 export default function FirstPageWizard(props) {
 
     const { 
         setChsdActive, 
         chsdActive, 
+        setUploadWorkId,
         setPage 
     } = props;
+
+    useEffect(() => setUploadWorkId(0), []);
  
     return (
         <>

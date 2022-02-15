@@ -32,6 +32,7 @@ import "./assets/images/menusymbol.svg";
 import "./assets/images/prompt_arrow.svg"
 import "./assets/images/night.svg";
 import "./assets/images/smile.svg";
+import "./assets/images/upload.svg";
 import "./assets/images/upload-symbol.png";
 import "./assets/images/upload-symbol-warning.png";
 import "./assets/images/vk.svg";

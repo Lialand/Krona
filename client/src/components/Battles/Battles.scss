@@ -5,6 +5,10 @@
     padding-bottom: 24px;
     display: grid;
     gap: 40px;
+    .itemBattle {
+        display: flex;
+        flex-direction: column;
+    }
     .battleCover {
         position: relative;
         background-color: rgba(0, 0, 0, 0.6);
@@ -88,6 +92,19 @@
             }
         }
     }
+    .redactBattleLinks {
+        color: white;
+        width: max-content;
+        margin-top: 8px;
+        a {
+            text-decoration: underline;
+            color: white;
+            margin-left: 4px;
+            &:hover {
+                color: gray;
+            }
+        }
+    }
     .battleName {
         font-size: 14px;
         white-space: nowrap;
@@ -111,10 +128,6 @@
     }
     .linkToWorks {
         cursor: pointer;
-        position: relative;
-        flex-direction: column;
-        display: flex;
-        justify-content: space-between;
     }
     .linkToWorks:hover {
         .battleCoverImage {

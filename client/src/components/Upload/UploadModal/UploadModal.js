@@ -18,10 +18,19 @@ import "./UploadModal.scss";
 
 export default function UploadModal(props) {
 
+    const {
+        battleId,
+        workId,
+        successUploaded,
+        back,
+        isLogged,
+        isMyWorks
+    } = props;
+
     const [progress, setProgress] = useState(null); //прогресс загрузки работы
     const [error, setError] = useState({
-        isError: false, 
-        text: ""
+        isError: !isLogged, 
+        text: isLogged ? "" : "Сначала авторизуйтесь"
     }); //состояние ошибки
     const [fileChoosed, setFileChoosed] = useState(false); //был ли выбран файл для загрузки
     const [dragOverStyle, setDragOverStyle] = useState(""); //css класс для оформления окна загрузки при поднесении к нему файла для загрузки
@@ -35,7 +44,6 @@ export default function UploadModal(props) {
     const uploadWindow = useRef(null);
     const form = useRef(null);
     const file = useRef(null);
-    const errorMessage = useRef(null);
 
     //Объекты являются аргументами для функций отображения ошибок и загрузки работы на сервер
     const prevCheckArgs = {
@@ -45,9 +53,9 @@ export default function UploadModal(props) {
         setSendConfirm
     };
     const sendFormArgs = { 
-        battleId: props.battleId,
-        workId: props.workId,
-        successUploaded: props.successUploaded,
+        battleId: battleId,
+        workId: workId,
+        successUploaded: successUploaded,
 
         setStartUploading,
         setDragOverStyle,
@@ -70,6 +78,7 @@ export default function UploadModal(props) {
 
     //Функция возвращает все состояния к исходным
     function clearAll(e) {
+        form.current?.reset();
         if (e) 
             e.preventDefault();
         setFileChoosed(false);
@@ -87,16 +96,18 @@ export default function UploadModal(props) {
     //В этом методе контролируются события для drag&drop
     useEffect(() => {
 
-        if (!fileChoosed) {
-            const dragEvents = {
-                drag: "drag",
-                dragstart: "dragstart",
-                dragend: "dragend",
-                dragover: "dragover",
-                dragenter: "dragenter",
-                dragleave: "dragleave",
-                drop: "drop",
-            };
+        const dragEvents = {
+            drag: "drag",
+            dragstart: "dragstart",
+            dragend: "dragend",
+            dragover: "dragover",
+            dragenter: "dragenter",
+            dragleave: "dragleave",
+            drop: "drop",
+        };
+
+        if (!fileChoosed && isLogged) {
+
             for (let item in dragEvents) {
                 uploadWindow.current.addEventListener(item, (e) => {
                     e.preventDefault();
@@ -129,23 +140,30 @@ export default function UploadModal(props) {
                             
                     }
                 );
+        } else {
+            setDragOverStyle("");
         }
-    });
+    }, [fileChoosed]);
 
-    //В этом методе устанавливается текст ошибки (нужно для правильной работы тегов <b></b>)
+    //Аннулирует состояния при ошибке
     useEffect(() => { 
 
-        if (error.isError && errorMessage.current !== null) {
-            errorMessage.current.innerHTML = error.text;
+        if (error.isError) {
+            setProgress(null);
+            setDragOverStyle("");
+            setSendConfirm(false);
+            setStartUploading(false);
+            setFileChoosed(false);
         }
-    }, [error.text, errorMessage]);
+    }, [error]);
 
     return (
         <div className="uploadModal">
-            {!sendConfirm
-                ? <h3>Отправка работы</h3>
-                : <h3>Уверены, что все ввели верно?</h3>
-            }
+            <h3>Отправка работы</h3>
+            {/*{!sendConfirm*/}
+            {/*    ? <h3>Отправка работы</h3>*/}
+            {/*    : <h3>Уверены, что все ввели верно?</h3>*/}
+            {/*}*/}
             <form
                 ref={form}
                 onSubmit={(e) => e.preventDefault()}
@@ -157,10 +175,10 @@ export default function UploadModal(props) {
                     draggable="true"
                     htmlFor="inputFile"
                     style={{
-                        border: fileChoosed ? "" : !error.isError ? "dashed 3px rgba(1, 1, 1, 0.2)" : "dashed 3px #06B667",
-                        cursor: !fileChoosed ? "pointer" : "",
+                        border: fileChoosed ? "" : !error.isError ? "dashed 2px rgba(1, 1, 1, 0.2)" : "dashed 3px #06B667",
+                        cursor: !fileChoosed && isLogged ? "pointer" : "",
                         backgroundSize: "cover",
-                        backgroundImage: previewImage
+                        backgroundImage: fileChoosed && previewImage
                     }}
                 >
                     <input
@@ -170,17 +188,17 @@ export default function UploadModal(props) {
                         className="inputFile"
                         onChange={(e) => {
                             if (e.target.files.length !== 0) {
-                                clearAll(e);
                                 checkImage(e.target.files, checkImageArgs, readImageArgs);
                             };
                             setRedact(false);
                         }}
                         ref={file}
-                        onClick={(e) => fileChoosed && !redact ? e.preventDefault() : e}
+                        onClick={(e) => fileChoosed && !redact || !isLogged ? e.preventDefault() : e}
                     />
                     {error.isError &&
                         <ErrorMessage
-                            errorText={<span ref={errorMessage} id="errorMessageUploadText" />}
+                            isClosable={isLogged}
+                            errorText={error.text}
                             errorClose={(e) => {
                                 e.preventDefault();
                                 setError({
@@ -198,28 +216,32 @@ export default function UploadModal(props) {
                         setRedact={() => setRedact(true)}
                         clearAll={e => clearAll(e)}
                         progress={progress}
+                        previewImage={previewImage}
                     />
                 </label>
                 <div className="workinfo">
-                    <p>Описание работы</p>
-                    {
-                        !sendConfirm
-                            ?
-                            <textarea 
-                                name="versionComment"
-                                id="inputText" className="inputfield"
-                                value={valueTextArea}
-                                onChange={e => setValueTextArea(e.target.value)}
-                            />
-                            :
-                            <div className="inputfield checking">{valueTextArea || <span style={{color: "pink"}}>Вы не написали комментарий (необязательно)</span>}</div>
-                    }
+                    {/*<p>Описание работы</p>*/}
+                    {/*{*/}
+                    {/*    !sendConfirm*/}
+                    {/*        ?*/}
+                    {/*        <textarea */}
+                    {/*            name="versionComment"*/}
+                    {/*            id="inputText" className="inputfield"*/}
+                    {/*            value={valueTextArea}*/}
+                    {/*            onChange={e => setValueTextArea(e.target.value)}*/}
+                    {/*        />*/}
+                    {/*        :*/}
+                    {/*        <div className="inputfield checking">{valueTextArea || <span style={{color: "pink"}}>Вы не написали комментарий (необязательно)</span>}</div>*/}
+                    {/*}*/}
                     <ButtonsUnderForm
-                        back={!sendConfirm ? props.back : () => setSendConfirm(false)}
-                        send={() => !sendConfirm ? prevCheck(prevCheckArgs) : sendForm(sendFormArgs)}
-                        buttonBackText={!sendConfirm ? "Назад" : "Нет, вернуться назад"}
-                        buttonSendText={!sendConfirm ? "Отправить работу" : "Да, отправить работу"}
-                        isMyWorks={props.isMyWorks}
+                        back={!sendConfirm ? back : () => setSendConfirm(false)}
+                        send={() => isLogged && !error.isError ? sendForm(sendFormArgs, prevCheckArgs) : {}}
+                        buttonBackText={"Назад"}
+                        buttonSendText={"Отправить работу"}
+                        // send={() => !sendConfirm ? prevCheck(prevCheckArgs) : sendForm(sendFormArgs)}
+                        // buttonBackText={!sendConfirm ? "Назад" : "Нет, вернуться назад"}
+                        // buttonSendText={!sendConfirm ? "Отправить работу" : "Да, отправить работу"}
+                        isMyWorks={isMyWorks}
                     />
                 </div>
             </form>

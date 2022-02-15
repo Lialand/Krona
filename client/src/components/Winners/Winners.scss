@@ -39,6 +39,10 @@
         footer {
             @include dis-dir(flex, row);
             margin-top: 10px;
+            >a {
+                max-height: 40px;
+                max-width: 40px;
+            }
             .blockMedal {
                 margin-left: 15px;
                 &:first-child {

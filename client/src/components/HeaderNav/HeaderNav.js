@@ -52,35 +52,31 @@ function UserNavigation(props) {
     const isMobile = useMediaQuery({maxWidth: 640});
 
     const {
-        storeHideNavigation,
         worksData,
         storeBattle,
         battleDetailedData
     } = props;
 
     return (
-        !storeHideNavigation && (
-            <>
-                <div className={(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners || pathname === battleWithParamURL(battleId)+works_stage2) ? "emptyNav works" : "emptyNav main"} />
-                <nav id="headerNav" className={(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners) ? "headerNav moveSidebar works" : "headerNav moveSidebar"}>
-                    <ul className={`headerNavUl`}>
-                        <li><NavLink to={battleWithParamURL(battleId)+mission} onClick={() => resetScroll(props)} activeClassName="active">Задание</NavLink ></li>
-                        {battleDetailedData.materials !== null && 
-                            <li><NavLink to={battleWithParamURL(battleId)+materials} onClick={() => resetScroll(props)} activeClassName="active">Материалы</NavLink ></li>}
-                        {worksData.length !== 0 && 
-                            <li><NavLink to={battleWithParamURL(battleId)+works} className={pathname === battleWithParamURL(battleId)+works_stage2 || pathname === battleWithParamURL(battleId)+winners ? "active" : ""} onClick={() => resetScroll(props)} activeClassName="active">{isMobile ? "Работы" : `Работы (${worksData?.length})`}</NavLink ></li>}
-                        {storeBattle.battleStageId === 6 &&
-                            <li><NavLink to={battleWithParamURL(battleId)+results} onClick={() => resetScroll(props)} activeClassName="active">Итоги</NavLink ></li>}
-                    </ul>
-                    {(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners || pathname === battleWithParamURL(battleId)+works_stage2) && <FilterWorks />}
-                </nav>
-            </>
-        )
+        <>
+            <div className={(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners || pathname === battleWithParamURL(battleId)+works_stage2) ? "emptyNav works" : "emptyNav main"} />
+            <nav id="headerNav" className={(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners) ? "headerNav moveSidebar works" : "headerNav moveSidebar"}>
+                <ul className={`headerNavUl`}>
+                    <li><NavLink to={battleWithParamURL(battleId)+mission} onClick={() => resetScroll(props)} activeClassName="active">Задание</NavLink ></li>
+                    {battleDetailedData.materials !== null && 
+                        <li><NavLink to={battleWithParamURL(battleId)+materials} onClick={() => resetScroll(props)} activeClassName="active">Материалы</NavLink ></li>}
+                    {worksData.length !== 0 && 
+                        <li><NavLink to={battleWithParamURL(battleId)+works} className={pathname === battleWithParamURL(battleId)+works_stage2 || pathname === battleWithParamURL(battleId)+winners ? "active" : ""} onClick={() => resetScroll(props)} activeClassName="active">{isMobile ? "Работы" : `Работы (${storeBattle?.worksCount})`}</NavLink ></li>}
+                    {storeBattle.battleStageId === 6 &&
+                        <li><NavLink to={battleWithParamURL(battleId)+results} onClick={() => resetScroll(props)} activeClassName="active">Итоги</NavLink ></li>}
+                </ul>
+                {(pathname === battleWithParamURL(battleId)+works || pathname === battleWithParamURL(battleId)+winners || pathname === battleWithParamURL(battleId)+works_stage2) && <FilterWorks />}
+            </nav>
+        </>
     );
 }
 
 const mapStateToProps = (state) => ({
-    storeHideNavigation: state.reducer.storeHideNavigation,
     dataMyWorks: state.reducer.dataMyWorks,
     storeBattle: state.reducer.storeBattle,
     storeSecondStageWorks: state.reducer.storeSecondStageWorks,

@@ -1,5 +1,8 @@
 export default function checkBattleStage(x) { //возвращает статус баттла в зависимости от battleStageId (пока используется только в Header.js)
     switch(x) {
+        case 0: {
+            return "Создан"
+        }
         case 1: {
             return "Запланирован"
         }

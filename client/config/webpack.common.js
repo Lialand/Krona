@@ -14,9 +14,11 @@ module.exports = {
         alias: {
             utils: path.resolve(__dirname, "../src/shared/utils/"),
             constants: path.resolve(__dirname, "../src/shared/constants/"),
-            mixins: path.resolve(__dirname, "../src/shared/mixins/mixins.scss"),
+            hooks: path.resolve(__dirname, "../src/shared/hooks/"),
             reduxFolder: path.resolve(__dirname, "../src/redux/"),
-            components: path.resolve(__dirname, "../src/components/")
+            components: path.resolve(__dirname, "../src/components/"),
+            server: path.resolve(__dirname, "../../server/"),
+            mixins: path.resolve(__dirname, "../src/shared/mixins/mixins.scss")
         },
     },
     module:{

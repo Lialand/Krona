@@ -11,7 +11,6 @@ import {
     setStoreBattle, 
     setStoreBattleSwitch
 } from "reduxFolder/actions/Actions";
-import { getMyWorks } from "reduxFolder/actions/AjaxActions";
 
 import "./Sidebar.scss";
 
@@ -41,13 +40,13 @@ function Sidebar(props) {
                     </div>
                 </div>
                 <Profile 
-                    isLogged={props.isLogged}
+                    storeAuth={storeAuth}
                     logout={props.logout}
                     storeBattle={storeBattle}
                 />
                 <div className="boxLink">
                     <a className="linkSite linkSiteActive">Баттлы</a>
-                    <a className="linkSite" href="https://club.krona.studio/">Клуб</a>
+                    <a target="_blank" className="linkSite" href="https://club.krona.studio/">Клуб</a>
                 </div>
                 <Links 
                     lastBattleData={lastBattleData}
@@ -58,17 +57,12 @@ function Sidebar(props) {
                     }}
                     battlesCount={battlesCount}
                     closeSidebar={closeSidebar}
-                    battleId={storeBattle.id}
+                    battleId={storeBattle?.id}
                     storeAuth={storeAuth}
                 />
             </div>
             <Footer 
                 closeSidebar={closeSidebar}
-                clickCurrentBattle={() => {
-                    setStoreBattle(lastBattleData); 
-                    setStoreBattleSwitch(true); 
-                    closeSidebar();
-                }}
                 lastBattleData={lastBattleData}
             />
         </aside>

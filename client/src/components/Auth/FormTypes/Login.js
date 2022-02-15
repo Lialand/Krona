@@ -5,7 +5,7 @@ export default function Login(props) {
     const {
         isActivePassView,
         setIsActivePassView,
-        enterBtn
+        handleOnKeyDown
     } = props;
 
     return (
@@ -18,7 +18,7 @@ export default function Login(props) {
                 name="username"
                 className="inputfield necessarily"
                 type="text"
-                onKeyDown={enterBtn}
+                onKeyDown={handleOnKeyDown}
             />
         </div>
         <div className="inputGroup">
@@ -27,7 +27,7 @@ export default function Login(props) {
                 name="password"
                 className="inputfield necessarily"
                 type={isActivePassView ? "text" : "password"}
-                onKeyDown={enterBtn}
+                onKeyDown={handleOnKeyDown}
             />
             <img 
                 className={`showPass ${isActivePassView ? "active" : ""}`} 

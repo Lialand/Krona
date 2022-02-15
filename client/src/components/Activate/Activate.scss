@@ -1,7 +1,7 @@
 @import "mixins"; 
 
 .activate {
-    @include w-h(100%, 100vh);
+    height: 100vh;
     @include dis-dir(flex, column);
     background-color: white;
     justify-content: center;

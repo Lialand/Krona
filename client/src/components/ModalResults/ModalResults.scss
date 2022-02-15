@@ -1,12 +1,14 @@
 @import "mixins";
 
-.modalWrapper {
-    @include dis-dir(flex, column);
-    justify-content: center;
-    @include absolutePos(0, 0, 0, 0);
-    position: fixed;
-    z-index: 4;
-    background: rgba(0, 0, 0, 0.6);
+.modalResults {
+    @include w-h(455px, 590px);
+    background-color: rgba(31, 31, 31, 1);
+    margin: auto;
+    color: white;
+    position: relative;
+    border: solid 1px #2c2c2c;
+    border-radius: 0!important;
+    border: none!important;
     .closeModal {
         @include absolutePos(13px, -70px);
         @include w-h(32px, 32px);
@@ -34,65 +36,64 @@
         width: 1px;
         margin-left: auto;
     }
-    .modalResults {
-        @include w-h(455px, 590px);
-        background-color: rgba(31, 31, 31, 1);
-        margin: auto;
-        color: white;
-        position: relative;
-        border: solid 1px #2c2c2c;
-        .modalResultsHeader {
-            position: sticky;
-            top: 0px;
-            height: 64px;
-            margin-right: 82px;
+    .modalResultsHeader {
+        position: sticky;
+        top: 0px;
+        height: 64px;
+        margin-right: 82px;
+    }
+    .closeModalBlock {
+        display: none;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        &:not(:first-of-type) {
+            margin-top: 32px;
         }
-        .closeModalBlock {
-            display: none;
+    }
+    thead {
+        font: 400 18px InterSemiBold;
+        td {
+            padding: 16px 0;
         }
-        table {
+        &:first-of-type td {
+            padding-top: 0;
             width: 100%;
-            border-collapse: collapse;
-            &:not(:first-of-type) {
-                margin-top: 32px;
-            }
         }
-        thead {
-            font: 400 18px InterSemiBold;
-            td {
-                padding: 16px 0;
-            }
-            &:first-of-type td {
-                padding-top: 0;
-                width: 100%;
-            }
+    }
+    tbody {
+        font: 400 12px InterRegular;
+        td {
+            padding: 8px 0;
         }
-        tbody {
-            font: 400 12px InterRegular;
-            td {
-                padding: 8px 0;
-            }
-        }
-        tr {
-            border-bottom: 1px solid #2C2C2C;
-        }
-        .grade {
-            font: 500 14px InterBold;
-            text-align: right;
-        }
-        .gradeDetailed {
-            text-align: right;
-            padding-left: 20px;
-        }
-        tbody
-        .gradeDetailed {
-            font: 500 12px InterBold;
-        }
+    }
+    tr {
+        border-bottom: 1px solid #2C2C2C;
+    }
+    .grade {
+        font: 500 14px InterBold;
+        text-align: right;
+    }
+    .gradeDetailed {
+        text-align: right;
+        padding-left: 20px;
+    }
+    tbody
+    .gradeDetailed {
+        font: 500 12px InterBold;
     }
 }
 
 @media (max-width: 540px) {
-    .modalWrapper {
+    .resultsDialog {
+        margin: 0!important;
+    }
+    .modalResults {
+        @include w-h(100%, 100vh);
+        padding: 32px 16px;
+        border: none;
+        background: black;
         .closeModalBlock {
             display: flex;
             background-color: black;
@@ -119,21 +120,15 @@
         .emptyCloseModalBlock {
             height: 88px;
         }
-        .modalResults {
-            @include w-h(100%, 100%);
-            padding: 32px 16px;
-            border: none;
-            background: black;
-            .scrollModalWrapper {
-                max-height: 100%;
-                width: auto;
-            }
-            table:not(:first-of-type) {
-                margin-top: 24px;
-            }
-            .nameDetailed {
-                width: 100%;
-            }
+        .scrollModalWrapper {
+            max-height: 100%;
+            width: auto;
+        }
+        table:not(:first-of-type) {
+            margin-top: 24px;
+        }
+        .nameDetailed {
+            width: 100%;
         }
     }
 }

@@ -1,7 +1,20 @@
+.sendBtn {
+    cursor: pointer;
+    border: none;
+}
+
 .linkEvent{
     display: block;
     padding: 20px 16px 35px 28px;
     overflow: hidden;
+    width: 100%;
+    &.sendBtn {
+        .eventBottom {
+            .eventTheme {
+                font-size: 18px;
+            }
+        }
+    }
     .eventTop{
         position: relative;
         .eventDate{
@@ -16,7 +29,7 @@
         .eventColor{
             width: 145px;
             height: 219px;
-            left: 199px;
+            right: -70px;
             top: -146px;
             filter: blur(55px);
             transform: rotate(48.72deg);
@@ -28,6 +41,8 @@
         align-items: flex-end;
         margin-top: 21px;
         justify-content: space-between;
+        z-index: 10;
+        position: relative;
         .eventTheme{
             font-family: Inter;
             font-weight: 600;
@@ -38,15 +53,34 @@
             max-height: 57px;
             overflow: hidden;
             margin-right: 10px;
+            text-align: left;
         }
     }
 }
 .social{
     padding: 12px 20px 10px 20px;
+    display: flex;
+    align-items: center;
+    .agreementLinks {
+        display: flex;
+        flex-direction: column;
+    }
+    .agreementLink {
+        text-decoration: underline;
+        color: white;
+        margin-left: 12px;
+        font-family: Inter;
+        font-size: 9px;
+        align-self: flex-start;
+        line-height: 10px;
+    }
     .socialLink{
         display: inline-block;
         width: 16px;
         height: 16px;
+        img {
+            display: block;
+        }
         &:not(:first-child){
             margin-left: 12px;
         }

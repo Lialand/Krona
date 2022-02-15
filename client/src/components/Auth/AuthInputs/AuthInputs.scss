@@ -6,10 +6,17 @@
     input[type=password] {
         padding-right: 50px;
     }
+    .hint {
+        @include absolutePos(15px);
+        font: 500 8px Inter;
+        padding: 4px;
+        background-color: black;
+        color: white;
+    }
     .inputGroup {
         @include dis-dir(flex, column);
         position: relative;
-        margin-bottom: 10px; //Сделано временно
+        margin-bottom: 20px; //Сделано временно
         &:not(:nth-of-type(3)) {
             margin-right: 24px;
         }
@@ -17,6 +24,14 @@
     .inputInfo {
         font: 500 14px InterMedium;
         color: black;
+    }
+    .inputInfoDesc{
+        max-width: 280px;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 100%;
+        margin-top: 8px !important;
+        color: #727272;
     }
     input {
         outline: none;
@@ -41,6 +56,33 @@
             &:hover {
                 border-color: red;
             }
+        }
+    }
+}
+
+@media (max-width: 1047px){
+    .authInputs {
+        .inputGroup {
+            margin-right: 24px;
+            width: 48%;
+            &:nth-of-type(2n) {
+                margin-right: 0;
+            }
+        }
+        .inputInfoDesc {
+            max-width: 100%;
+        }
+        .inputfield {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 760px){
+    .authInputs {
+        .inputGroup {
+            margin-right: 0 !important;
+            width: 100%;
         }
     }
 }

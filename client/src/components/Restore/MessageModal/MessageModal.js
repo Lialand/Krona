@@ -10,7 +10,7 @@ function MessageModal(props) {
         outSideClose,
         closeModal,
         text,
-        description,
+        description = "",
         canReturnOnPage = true
     } = props;
 
@@ -31,8 +31,8 @@ function MessageModal(props) {
                     </h1>
                 </header>
                 <p className="description">
-                    {description} 
-                    Попробуйте еще раз или обратитесь в Direct нашего <a href="https://www.instagram.com/krona.studio">Instagram</a>
+                    {description && description+". "} 
+                    Попробуйте еще раз или обратитесь в Direct нашего <a target="_blank" href="https://www.instagram.com/krona.studio">Instagram</a>
                 </p>
                 {canReturnOnPage 
                     ?
@@ -40,7 +40,9 @@ function MessageModal(props) {
                         ОК
                     </button>
                     :
-                    <Link to="" />
+                    <button className="enterbutton withLink">
+                        <Link to="">ОК</Link>
+                    </button>
                 }
             </div>
         </section>

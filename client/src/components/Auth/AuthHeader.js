@@ -7,9 +7,9 @@ const headingType = formType => {
     } else if (formType === "RESTORE_ACCOUNT") {
         return "Восстановление аккаунта"
     } else if (formType === "REGISTRATION") {
-        return "Зарегистрируйтесь, чтобы получить доступ к закрытым материалам"
+        return "Зарегистрируйтесь, чтобы участвовать в баттле"
     } else {
-        return "Войдите, чтобы получить доступ к закрытым материалам"
+        return "Войдите, чтобы участвовать в баттле"
     }
 }
 
